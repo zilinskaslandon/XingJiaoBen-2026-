@@ -213,11 +213,11 @@ _G.MoveSpeedFunctions = {
 }
 
 local MainSection = Window:Section({
-    Title = "功能菜单",
+    Title = "打开侧边栏",
     Opened = true
 })
 
--- ===== 第一个Tab: 本地玩家 =====
+-- 第一个Tab: 本地玩家
 local about = MainSection:Tab({
     Title = "本地玩家",
     Icon = "rbxassetid://18941716391",
@@ -277,7 +277,7 @@ about:Toggle({
     end
 })
 
--- ===== 第二个Tab: 通用功能 =====
+-- 第二个Tab: 通用功能（关键修复：变量名用 about2）
 local about2 = MainSection:Tab({
     Title = "通用功能",
     Icon = "rbxassetid://18941716391",
