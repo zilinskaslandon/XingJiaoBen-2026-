@@ -479,21 +479,6 @@ _G.Health = {
     Connection = nil
 }
 
-local function getCharacter()
-    if LocalPlayer and LocalPlayer.Character then
-        return LocalPlayer.Character
-    end
-    return nil
-end
-
-local function getHumanoid()
-    local char = getCharacter()
-    if char then
-        return char:FindFirstChildOfClass("Humanoid")
-    end
-    return nil
-end
-
 local function setHealth(value)
     local humanoid = getHumanoid()
     if humanoid then
@@ -1099,8 +1084,7 @@ about2:Toggle({
     Title = "防甩飞",
     Default = false,
     Callback = function(state)
-        local player = game.Players.LocalPlayer
-        if state then
+        local player = game.Players.LocalPlayer        if state then
             AntiRagdoll = game:GetService("RunService").Stepped:Connect(function()
                 for _, otherPlayer in pairs(game.Players:GetPlayers()) do
                     if otherPlayer ~= player and otherPlayer.Character then
@@ -1336,27 +1320,29 @@ about2:Toggle({
     Default = false,
     Callback = function(state)
         autoInteract = state
-        while autoInteract do
-            local player = game.Players.LocalPlayer
-            local character = player.Character
-            if character and character:FindFirstChild("HumanoidRootPart") then
-                local playerPosition = character.HumanoidRootPart.Position
-                for _, descendant in pairs(workspace:GetDescendants()) do
-                    if descendant:IsA("ProximityPrompt") then
-                        local objectPosition = descendant.Parent and descendant.Parent:IsA("BasePart") and descendant.Parent.Position
-                        if objectPosition then
-                            local distance = (playerPosition - objectPosition).Magnitude
-                            if distance <= maxDistance then
+        task.spawn(function()
+            while autoInteract do
+                local player = game.Players.LocalPlayer
+                local character = player.Character
+                if character and character:FindFirstChild("HumanoidRootPart") then
+                    local playerPosition = character.HumanoidRootPart.Position
+                    for _, descendant in pairs(workspace:GetDescendants()) do
+                        if descendant:IsA("ProximityPrompt") then
+                            local objectPosition = descendant.Parent and descendant.Parent:IsA("BasePart") and descendant.Parent.Position
+                            if objectPosition then
+                                local distance = (playerPosition - objectPosition).Magnitude
+                                if distance <= maxDistance then
+                                    fireproximityprompt(descendant)
+                                end
+                            else
                                 fireproximityprompt(descendant)
                             end
-                        else
-                            fireproximityprompt(descendant)
                         end
                     end
                 end
+                task.wait(0.25)
             end
-            task.wait(0.25)
-        end
+        end)
     end
 })
 
@@ -1614,7 +1600,7 @@ about2:Toggle({
     Callback = function(bool)
         _G.spamSoond = bool
         if bool then
-            spawn(spamSound)
+            task.spawn(spamSound)
         end
     end
 })
@@ -1638,7 +1624,7 @@ about2:Toggle({
                     table.insert(BaseParts, v)
                 end
             end)
-            spawn(function()
+            task.spawn(function()
                 while task.wait(0.025) do
                     if Break then break end
                     for i, v in pairs(BaseParts) do
