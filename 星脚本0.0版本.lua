@@ -190,6 +190,7 @@ local MainSection = Window:Section({
     Opened = true
 })
 
+-- ===== 第一个 Tab: 本地玩家 =====
 local about = MainSection:Tab({
     Title = "本地玩家",
     Icon = "rbxassetid://18941716391",
@@ -885,6 +886,7 @@ about:Toggle({
     end
 })
 
+-- ===== 第二个 Tab: 通用功能 =====
 local about2 = MainSection:Tab({ 
     Title = "通用功能", 
     Icon = "rbxassetid://18941716391",
@@ -1055,7 +1057,8 @@ about2:Toggle({
     Title = "防甩飞",
     Default = false,
     Callback = function(state)
-        local player = game.Players.LocalPlayer        if state then
+        local player = game.Players.LocalPlayer
+        if state then
             AntiRagdoll = game:GetService("RunService").Stepped:Connect(function()
                 for _, otherPlayer in pairs(game.Players:GetPlayers()) do
                     if otherPlayer ~= player and otherPlayer.Character then
