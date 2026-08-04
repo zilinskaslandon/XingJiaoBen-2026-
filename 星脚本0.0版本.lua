@@ -296,7 +296,6 @@ _G.Jump = {
 
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
 local function getCharacter()
@@ -803,7 +802,7 @@ local function startCameraLoop()
     end
     _G.Camera.Connection = RunService.Heartbeat:Connect(function()
         applyCameraSettings()
-    end
+    end)
 end
 
 local function stopCameraLoop()
@@ -965,20 +964,20 @@ runSection:Toggle({
     end
 })
 
-local about = MainSection:Tab({ 
-    Title = "通用功能页~", 
+local about2 = MainSection:Tab({ 
+    Title = "通用功能", 
     Icon = "rbxassetid://18941716391",
     PremiumOnly = true
 })
 
-about:Button({
+about2:Button({
     Title = "隐身道具",
     Callback = function()
         loadstring(game:HttpGet("https://gist.githubusercontent.com/skid123skidlol/cd0d2dce51b3f20ad1aac941da06a1a1/raw/f58b98cce7d51e53ade94e7bb460e4f24fb7e0ff/%257BFE%257D%2520Invisible%2520Tool%2520(can%2520hold%2520tools)", true))()
     end
 })
 
-about:Toggle({
+about2:Toggle({
     Title = "循环恢复血量",
     Default = false,
     Callback = function(HF)
@@ -994,7 +993,7 @@ about:Toggle({
     end
 })
 
-about:Button({
+about2:Button({
     Title = "锁定视野",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/nekmtvpA/raw"))()
@@ -1013,7 +1012,7 @@ local Cam2 = function()
     end
 end
 
-about:Toggle({
+about2:Toggle({
     Title = "解锁最大视野",
     Default = false,
     Callback = function(Value)
@@ -1024,28 +1023,28 @@ about:Toggle({
     end
 })
 
-about:Button({
+about2:Button({
     Title = "查看游戏中的所有玩家（包括血量条）",
     Callback = function()
         loadstring(game:HttpGet(('https://pastebin.com/raw/G2zb992X'), true))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "工具包",
     Callback = function()
         loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/BTools.txt"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "老外传送至玩家身边",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/Infinity2346/Tect-Menu/main/Teleport%20Gui.lua'))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "点击传送道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/Jf2QXOwa/raw"))()
@@ -1054,7 +1053,7 @@ about:Button({
 
 local Clipon = false
 local Stepped = nil
-about:Toggle({
+about2:Toggle({
     Title = "穿墙",
     Default = false,
     Callback = function(NC)
@@ -1074,56 +1073,56 @@ about:Toggle({
     end
 })
 
-about:Button({
+about2:Button({
     Title = "皮飞行",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/07cdd3eeaf4d4928.txt_2024-08-09_090317.OTed.lua"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "皮飞车",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/Pi-feiche.lua"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "皮自瞄",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/3683e49998644fb7.txt_2024-08-09_094310.OTed.lua"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "皮甩飞",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/%E7%9A%AE%E7%94%A9%E9%A3%9E.lua"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "甩飞所有人",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "死亡笔记",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/1_1.txt_2024-08-08_153358.OTed.lua"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "铁拳",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/0Ben1/fe/main/obf_rf6iQURzu1fqrytcnLBAvW34C9N55kS9g9G3CKz086rC47M6632sEd4ZZYB0AYgV.lua.txt'))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "电脑键盘",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
@@ -1131,7 +1130,7 @@ about:Button({
 })
 
 local AntiRagdoll = nil
-about:Toggle({
+about2:Toggle({
     Title = "防甩飞",
     Default = false,
     Callback = function(state)
@@ -1174,7 +1173,7 @@ about:Toggle({
     end
 })
 
-about:Toggle({
+about2:Toggle({
     Title = "无法移动",
     Default = false,
     Callback = function(state)
@@ -1188,84 +1187,84 @@ about:Toggle({
     end
 })
 
-about:Button({
+about2:Button({
     Title = "自杀",
     Callback = function()
         game.Players.LocalPlayer.Character.Humanoid.Health = 0
     end
 })
 
-about:Button({
+about2:Button({
     Title = "踏空行走",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "通用ESP",
     Callback = function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/UESP'))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "踢人脚本(仅娱乐)",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/c8320f69b6aa4f5d.txt_2024-08-08_214628.OTed.lua"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "动画中心",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/GamingScripter/Animation-Hub/main/Animation%20Gui", true))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "爬墙",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/zXk4Rq2r"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "替身",
     Callback = function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/SkrillexMe/SkrillexLoader/main/SkrillexLoadMain')))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "碰到就飞",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/Fling%20GUI"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "操人脚本",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/BkeffrT5/raw"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "圈圈自瞄(可调)",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/YnfF3sje/raw"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "iw指令",
     Callback = function()
         loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'), true))()
     end
 })
 
-about:Toggle({
+about2:Toggle({
     Title = "人物不可见状态(隐身)",
     Default = false,
     Callback = function(state)
@@ -1283,7 +1282,7 @@ about:Toggle({
 })
 
 local getBackpackRunning = false
-about:Toggle({
+about2:Toggle({
     Title = "获取所有玩家背包道具",
     Default = false,
     Callback = function(state)
@@ -1310,7 +1309,7 @@ about:Toggle({
     end
 })
 
-about:Button({
+about2:Button({
     Title = "获取所有玩家道具",
     Callback = function()
         for i, v in pairs(game.Players:GetChildren()) do
@@ -1322,28 +1321,28 @@ about:Button({
     end
 })
 
-about:Button({
+about2:Button({
     Title = "获取当前道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/3FU05Dyt/raw"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "装备全部道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/uBqVR9JC/raw"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "删除道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/r4LHK4p0/raw"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "删除所有道具",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/8HB71Lbj/raw"))()
@@ -1351,7 +1350,7 @@ about:Button({
 })
 
 local maxDistance = 10
-about:Input({
+about2:Input({
     Title = "互动距离",
     Value = "",
     PlaceholderText = "输入(默认10米)",
@@ -1367,7 +1366,7 @@ about:Input({
 })
 
 local autoInteract = false
-about:Toggle({
+about2:Toggle({
     Title = "自动互动",
     Default = false,
     Callback = function(state)
@@ -1397,7 +1396,7 @@ about:Toggle({
 })
 
 local customHoldDuration = 0
-about:Input({
+about2:Input({
     Title = "互动时间",
     Value = "",
     PlaceholderText = "输入(默认0秒)",
@@ -1413,7 +1412,7 @@ about:Input({
 })
 
 local promptConnection = nil
-about:Toggle({
+about2:Toggle({
     Title = "快速互动",
     Default = false,
     Callback = function(Value)
@@ -1452,7 +1451,7 @@ local function toggleXRay()
     end
 end
 
-about:Toggle({
+about2:Toggle({
     Title = "X-Ray",
     Default = false,
     Callback = function(Value)
@@ -1464,7 +1463,7 @@ about:Toggle({
     end
 })
 
-about:Toggle({
+about2:Toggle({
     Title = "无限跳",
     Default = false,
     Callback = function(IJ)
@@ -1477,7 +1476,7 @@ about:Toggle({
     end
 })
 
-about:Toggle({
+about2:Toggle({
     Title = "上帝模式",
     Default = false,
     Callback = function(Value)
@@ -1492,14 +1491,14 @@ about:Toggle({
     end
 })
 
-about:Button({
+about2:Button({
     Title = "聊天气泡美化",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/lCEPuiQO/raw"))()
     end
 })
 
-about:Toggle({
+about2:Toggle({
     Title = "靠近敌人自动攻击[需要先装备武器]",
     Default = false,
     Callback = function(state)
@@ -1617,7 +1616,7 @@ about:Toggle({
     end
 })
 
-about:Toggle({
+about2:Toggle({
     Title = "坐下",
     Default = false,
     Callback = function(Value)
@@ -1644,7 +1643,7 @@ local function spamSound()
     end
 end
 
-about:Toggle({
+about2:Toggle({
     Title = "声音折磨",
     Default = false,
     Callback = function(bool)
@@ -1656,7 +1655,7 @@ about:Toggle({
 })
 
 local Break = false
-about:Toggle({
+about2:Toggle({
     Title = "七彩建筑",
     Default = false,
     Callback = function(Value)
@@ -1693,7 +1692,7 @@ local enabled = false
 local deathPos = nil
 local waitTime = 0
 
-about:Input({
+about2:Input({
     Title = "等待时间(秒)",
     Value = "",
     PlaceholderText = "输入(默认0秒)",
@@ -1703,7 +1702,7 @@ about:Input({
     end
 })
 
-about:Toggle({
+about2:Toggle({
     Title = "原地复活",
     Default = false,
     Callback = function(state)
@@ -1730,14 +1729,14 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
     end)
 end)
 
-about:Button({
+about2:Button({
     Title = "人物螺旋上天",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/xV1T3PAi/raw"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "无限R币",
     Callback = function()
         loadstring(game:HttpGet("https://pastefy.app/SxhPVOyM/raw"))()
@@ -1748,7 +1747,7 @@ local originalChatVisible = nil
 local heartbeatConnection = nil
 local chatEnabled = false
 
-about:Toggle({
+about2:Toggle({
     Title = "显示聊天框",
     Default = false,
     Callback = function(state)
@@ -1776,21 +1775,21 @@ about:Toggle({
     end
 })
 
-about:Button({
+about2:Button({
     Title = "获得管理员权限",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/sZpgTVas"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "显示时间",
     Callback = function()
         loadstring(game:HttpGet("https://pastebin.com/raw/RycMWV3a"))()
     end
 })
 
-about:Button({
+about2:Button({
     Title = "F3X",
     Callback = function()
         loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
@@ -1802,7 +1801,7 @@ local notifyEnabled = false
 local playerAddedConn = nil
 local playerRemovedConn = nil
 
-about:Toggle({
+about2:Toggle({
     Title = "玩家进出服务器通知",
     Default = false,
     Callback = function(state)
