@@ -278,11 +278,6 @@ about:Toggle({
     end
 })
 
-local jumpSection = about:section({
-    Title = "跳跃",
-    Opened = false
-})
-
 _G.Jump = {
     Enabled = false,
     JumpPower = 50,
@@ -421,7 +416,7 @@ LocalPlayer.CharacterAdded:Connect(function()
     end
 end)
 
-jumpSection:Toggle({
+about:Toggle({
     Title = "开启/关闭跳跃",
     Default = false,
     Callback = function(Value)
@@ -434,7 +429,7 @@ jumpSection:Toggle({
     end
 })
 
-jumpSection:Dropdown({
+about:Dropdown({
     Title = "跳跃模式",
     Values = {"Humanoid", "CFrame", "Velocity", "Infinite"},
     Value = "Humanoid",
@@ -447,7 +442,7 @@ jumpSection:Dropdown({
     end
 })
 
-jumpSection:Slider({
+about:Slider({
     Title = "设置跳跃高度",
     Value = { Min = 50, Max = 400, Default = 50 },
     Callback = function(Value)
@@ -455,7 +450,7 @@ jumpSection:Slider({
     end
 })
 
-jumpSection:Input({
+about:Input({
     Title = "设置跳跃倍数",
     Value = "",
     PlaceholderText = "输入倍数",
@@ -468,17 +463,12 @@ jumpSection:Input({
     end
 })
 
-jumpSection:Toggle({
+about:Toggle({
     Title = "无限跳跃",
     Default = false,
     Callback = function(Value)
         _G.Jump.InfJ = Value
     end
-})
-
-local healthSection = about:section({
-    Title = "血量",
-    Opened = false
 })
 
 _G.Health = {
@@ -555,7 +545,7 @@ LocalPlayer.CharacterAdded:Connect(function()
     end
 end)
 
-healthSection:Toggle({
+about:Toggle({
     Title = "开启/关闭血量",
     Default = false,
     Callback = function(Value)
@@ -568,7 +558,7 @@ healthSection:Toggle({
     end
 })
 
-healthSection:Slider({
+about:Slider({
     Title = "设置血量",
     Value = { Min = 100, Max = 10000, Default = 100 },
     Callback = function(Value)
@@ -576,7 +566,7 @@ healthSection:Slider({
     end
 })
 
-healthSection:Input({
+about:Input({
     Title = "设置血量",
     Value = "",
     PlaceholderText = "输入血量值",
@@ -589,7 +579,7 @@ healthSection:Input({
     end
 })
 
-healthSection:Toggle({
+about:Toggle({
     Title = "开启/关闭血量上限",
     Default = false,
     Callback = function(Value)
@@ -602,7 +592,7 @@ healthSection:Toggle({
     end
 })
 
-healthSection:Slider({
+about:Slider({
     Title = "设置血量上限",
     Value = { Min = 100, Max = 10000, Default = 100 },
     Callback = function(Value)
@@ -610,7 +600,7 @@ healthSection:Slider({
     end
 })
 
-healthSection:Input({
+about:Input({
     Title = "设置血量上限",
     Value = "",
     PlaceholderText = "输入血量上限值",
@@ -621,11 +611,6 @@ healthSection:Input({
             _G.Health.MaxHealth = maxHealth
         end
     end
-})
-
-local gravitySection = about:section({
-    Title = "重力",
-    Opened = false
 })
 
 _G.Gravity = {
@@ -672,7 +657,7 @@ _G.GravityFunctions = {
     stop = stopGravityLoop
 }
 
-gravitySection:Toggle({
+about:Toggle({
     Title = "开启/关闭修改重力",
     Default = false,
     Callback = function(state)
@@ -686,7 +671,7 @@ gravitySection:Toggle({
     end
 })
 
-gravitySection:Slider({
+about:Slider({
     Title = "设置重力值",
     Value = { Min = 0, Max = 1000, Default = 196.2 },
     Callback = function(Value)
@@ -697,7 +682,7 @@ gravitySection:Slider({
     end
 })
 
-gravitySection:Toggle({
+about:Toggle({
     Title = "无重力模式",
     Default = false,
     Callback = function(Value)
@@ -706,11 +691,6 @@ gravitySection:Toggle({
             _G.GravityFunctions.apply()
         end
     end
-})
-
-local nightVisionSection = about:section({
-    Title = "亮度",
-    Opened = false
 })
 
 local Lighting = game:GetService("Lighting")
@@ -726,7 +706,7 @@ local NightVision = {
     Connection = nil
 }
 
-nightVisionSection:Slider({
+about:Slider({
     Title = "设置夜视亮度",
     Value = { Min = 1, Max = 30, Default = 1 },
     Callback = function(Value)
@@ -737,7 +717,7 @@ nightVisionSection:Slider({
     end
 })
 
-nightVisionSection:Toggle({
+about:Toggle({
     Title = "开启/关闭夜视",
     Default = false,
     Callback = function(Enabled)
@@ -762,11 +742,6 @@ nightVisionSection:Toggle({
             end
         end
     end
-})
-
-local cameraSection = about:section({
-    Title = "相机",
-    Opened = false
 })
 
 _G.Camera = {
@@ -826,7 +801,7 @@ _G.CameraFunctions = {
     stop = stopCameraLoop
 }
 
-cameraSection:Toggle({
+about:Toggle({
     Title = "开启/关闭缩放距离",
     Default = false,
     Callback = function(Value)
@@ -839,7 +814,7 @@ cameraSection:Toggle({
     end
 })
 
-cameraSection:Slider({
+about:Slider({
     Title = "设置缩放距离",
     Value = { Min = 128, Max = 200000, Default = 128 },
     Callback = function(Value)
@@ -850,7 +825,7 @@ cameraSection:Slider({
     end
 })
 
-cameraSection:Toggle({
+about:Toggle({
     Title = "开启/关闭焦距",
     Default = false,
     Callback = function(Value)
@@ -863,7 +838,7 @@ cameraSection:Toggle({
     end
 })
 
-cameraSection:Slider({
+about:Slider({
     Title = "设置焦距",
     Value = { Min = 0.1, Max = 250, Default = 70 },
     Callback = function(Value)
@@ -872,11 +847,6 @@ cameraSection:Slider({
             game.Workspace.CurrentCamera.FieldOfView = Value
         end
     end
-})
-
-local heightSection = about:section({
-    Title = "高度",
-    Opened = false
 })
 
 local heightConfig = {
@@ -907,7 +877,7 @@ LocalPlayer.CharacterAdded:Connect(function(char)
     applyHeight()
 end)
 
-heightSection:Input({
+about:Input({
     Title = "设置高度",
     Value = "",
     PlaceholderText = "输入高度值",
@@ -918,7 +888,7 @@ heightSection:Input({
     end
 })
 
-heightSection:Toggle({
+about:Toggle({
     Title = "开启/关闭修改高度",
     Default = false,
     Callback = function(state)
@@ -927,15 +897,10 @@ heightSection:Toggle({
     end
 })
 
-local runSection = about:section({
-    Title = "快速跑步",
-    Opened = false
-})
-
 local Speed = 0
 local sudu = nil
 
-runSection:Input({
+about:Input({
     Title = "设置快速跑步",
     Value = "",
     PlaceholderText = "输入速度",
@@ -945,7 +910,7 @@ runSection:Input({
     end
 })
 
-runSection:Toggle({
+about:Toggle({
     Title = "开启/关闭快速跑步",
     Default = false,
     Callback = function(v)
