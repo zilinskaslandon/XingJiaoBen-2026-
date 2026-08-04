@@ -185,35 +185,6 @@ Window:EditOpenButton({
     })
 })
 
-_G.MoveSpeed = {
-    Mode = "WalkSpeed",
-    Speed = 16,
-    Enabled = false
-}
-
-_G.MoveSpeedFunctions = {
-    start = function()
-        print("移动速度已开启，模式：" .. _G.MoveSpeed.Mode .. "，速度：" .. _G.MoveSpeed.Speed)
-        local character = game.Players.LocalPlayer.Character
-        if character then
-            local humanoid = character:FindFirstChild("Humanoid")
-            if humanoid then
-                humanoid.WalkSpeed = _G.MoveSpeed.Speed
-            end
-        end
-    end,
-    stop = function()
-        print("移动速度已关闭")
-        local character = game.Players.LocalPlayer.Character
-        if character then
-            local humanoid = character:FindFirstChild("Humanoid")
-            if humanoid then
-                humanoid.WalkSpeed = 16
-            end
-        end
-    end
-}
-
 local MainSection = Window:Section({
     Title = "打开侧边栏",
     Opened = true
