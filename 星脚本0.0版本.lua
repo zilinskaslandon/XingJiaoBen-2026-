@@ -219,8 +219,8 @@ local MainSection = Window:Section({
     Opened = true
 })
 
-local about = MainSection:Tab({ 
-    Title = "通用功能页~", 
+local about = MainSection:Tab({
+    Title = "本地玩家",
     Icon = "rbxassetid://18941716391",
     PremiumOnly = true
 })
@@ -276,6 +276,699 @@ about:Toggle({
             _G.MoveSpeedFunctions.stop()
         end
     end
+})
+
+local jumpSection = about:section({
+    Title = "跳跃",
+    Opened = false
+})
+
+_G.Jump = {
+    Enabled = false,
+    JumpPower = 50,
+    Mode = "Humanoid",
+    Multiplier = 1,
+    InfJ = false,
+    Connection = nil,
+    InfJConnection = nil,
+    JumpRequestConnection = nil
+}
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+local function getCharacter()
+    if LocalPlayer and LocalPlayer.Character then
+        return LocalPlayer.Character
+    end
+    return nil
+end
+
+local function getHumanoid()
+    local char = getCharacter()
+    if char then
+        return char:FindFirstChildOfClass("Humanoid")
+    end
+    return nil
+end
+
+local function getRootPart()
+    local char = getCharacter()
+    if char then
+        return char:FindFirstChild("HumanoidRootPart") or char:FindFirstChild("Torso")
+    end
+    return nil
+end
+
+local function checkGrounded()
+    local humanoid = getHumanoid()
+    if humanoid then
+        return humanoid:GetState() == Enum.HumanoidStateType.Landed or 
+               humanoid:GetState() == Enum.HumanoidStateType.Running or
+               humanoid:GetState() == Enum.HumanoidStateType.Walking
+    end
+    return false
+end
+
+local function humanoidJump(power, multiplier)
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid.JumpPower = power * multiplier
+    end
+end
+
+local function performJump()
+    local humanoid = getHumanoid()
+    local rootPart = getRootPart()
+    if not humanoid or not rootPart or humanoid.Health <= 0 then return end
+    if _G.Jump.Mode == "Humanoid" then
+        humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+    elseif _G.Jump.Mode == "CFrame" then
+        local jumpHeight = _G.Jump.JumpPower * _G.Jump.Multiplier * 0.1
+        rootPart.CFrame = rootPart.CFrame + Vector3.new(0, jumpHeight, 0)
+    elseif _G.Jump.Mode == "Velocity" then
+        rootPart.Velocity = Vector3.new(rootPart.Velocity.X, _G.Jump.JumpPower * _G.Jump.Multiplier * 1.5, rootPart.Velocity.Z)
+    elseif _G.Jump.Mode == "Infinite" then
+        rootPart.Velocity = Vector3.new(rootPart.Velocity.X, _G.Jump.JumpPower * _G.Jump.Multiplier * 1.5, rootPart.Velocity.Z)
+    end
+end
+
+local function setupJumpRequest()
+    if _G.Jump.JumpRequestConnection then
+        _G.Jump.JumpRequestConnection:Disconnect()
+        _G.Jump.JumpRequestConnection = nil
+    end
+    if not _G.Jump.Enabled then return end
+    _G.Jump.JumpRequestConnection = UserInputService.JumpRequest:Connect(function()
+        if not _G.Jump.Enabled then return end
+        local humanoid = getHumanoid()
+        if not humanoid or humanoid.Health <= 0 then return end
+        if not _G.Jump.InfJ and _G.Jump.Mode ~= "Infinite" then
+            if not checkGrounded() then return end
+        end
+        performJump()
+    end)
+end
+
+local function startJumpLoop()
+    if _G.Jump.Connection then
+        _G.Jump.Connection:Disconnect()
+        _G.Jump.Connection = nil
+    end
+    if not _G.Jump.Enabled then return end
+    setupJumpRequest()
+    _G.Jump.Connection = RunService.Heartbeat:Connect(function()
+        if not _G.Jump.Enabled then return end
+        local humanoid = getHumanoid()
+        if not humanoid then return end
+        if humanoid.Health <= 0 then return end
+        if _G.Jump.Mode == "Humanoid" then
+            humanoidJump(_G.Jump.JumpPower, _G.Jump.Multiplier)
+        end
+    end)
+end
+
+local function stopJumpLoop()
+    if _G.Jump.Connection then
+        _G.Jump.Connection:Disconnect()
+        _G.Jump.Connection = nil
+    end
+    if _G.Jump.InfJConnection then
+        _G.Jump.InfJConnection:Disconnect()
+        _G.Jump.InfJConnection = nil
+    end
+    if _G.Jump.JumpRequestConnection then
+        _G.Jump.JumpRequestConnection:Disconnect()
+        _G.Jump.JumpRequestConnection = nil
+    end
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid.JumpPower = 50
+    end
+end
+
+_G.JumpFunctions = {
+    start = startJumpLoop,
+    stop = stopJumpLoop
+}
+
+LocalPlayer.CharacterAdded:Connect(function()
+    task.wait(1)
+    if _G.Jump.Enabled then
+        stopJumpLoop()
+        startJumpLoop()
+    end
+end)
+
+jumpSection:Toggle({
+    Title = "开启/关闭跳跃",
+    Default = false,
+    Callback = function(Value)
+        _G.Jump.Enabled = Value
+        if Value then
+            _G.JumpFunctions.start()
+        else
+            _G.JumpFunctions.stop()
+        end
+    end
+})
+
+jumpSection:Dropdown({
+    Title = "跳跃模式",
+    Values = {"Humanoid", "CFrame", "Velocity", "Infinite"},
+    Value = "Humanoid",
+    Callback = function(Value)
+        _G.Jump.Mode = Value
+        if _G.Jump.Enabled then
+            _G.JumpFunctions.stop()
+            _G.JumpFunctions.start()
+        end
+    end
+})
+
+jumpSection:Slider({
+    Title = "设置跳跃高度",
+    Value = { Min = 50, Max = 400, Default = 50 },
+    Callback = function(Value)
+        _G.Jump.JumpPower = Value
+    end
+})
+
+jumpSection:Input({
+    Title = "设置跳跃倍数",
+    Value = "",
+    PlaceholderText = "输入倍数",
+    ClearTextOnFocus = false,
+    Callback = function(Value)
+        local multiplier = tonumber(Value)
+        if multiplier and multiplier > 0 then
+            _G.Jump.Multiplier = multiplier
+        end
+    end
+})
+
+jumpSection:Toggle({
+    Title = "无限跳跃",
+    Default = false,
+    Callback = function(Value)
+        _G.Jump.InfJ = Value
+    end
+})
+
+local healthSection = about:section({
+    Title = "血量",
+    Opened = false
+})
+
+_G.Health = {
+    Enabled = false,
+    MaxHealthEnabled = false,
+    Health = 100,
+    MaxHealth = 100,
+    Connection = nil
+}
+
+local function getCharacter()
+    if LocalPlayer and LocalPlayer.Character then
+        return LocalPlayer.Character
+    end
+    return nil
+end
+
+local function getHumanoid()
+    local char = getCharacter()
+    if char then
+        return char:FindFirstChildOfClass("Humanoid")
+    end
+    return nil
+end
+
+local function setHealth(value)
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid.Health = value
+    end
+end
+
+local function setMaxHealth(value)
+    local humanoid = getHumanoid()
+    if humanoid then
+        humanoid.MaxHealth = value
+    end
+end
+
+local function startHealthLoop()
+    if _G.Health.Connection then
+        _G.Health.Connection:Disconnect()
+    end
+    _G.Health.Connection = RunService.Heartbeat:Connect(function()
+        local humanoid = getHumanoid()
+        if not humanoid then return end
+        if humanoid.Health <= 0 then return end
+        if _G.Health.MaxHealthEnabled then
+            setMaxHealth(_G.Health.MaxHealth)
+        end
+        if _G.Health.Enabled then
+            setHealth(_G.Health.Health)
+        end
+    end)
+end
+
+local function stopHealthLoop()
+    if _G.Health.Connection then
+        _G.Health.Connection:Disconnect()
+        _G.Health.Connection = nil
+    end
+end
+
+_G.HealthFunctions = {
+    start = startHealthLoop,
+    stop = stopHealthLoop
+}
+
+LocalPlayer.CharacterAdded:Connect(function()
+    task.wait(1)
+    if _G.Health.Enabled or _G.Health.MaxHealthEnabled then
+        stopHealthLoop()
+        startHealthLoop()
+    end
+end)
+
+healthSection:Toggle({
+    Title = "开启/关闭血量",
+    Default = false,
+    Callback = function(Value)
+        _G.Health.Enabled = Value
+        if _G.Health.Enabled or _G.Health.MaxHealthEnabled then
+            _G.HealthFunctions.start()
+        else
+            _G.HealthFunctions.stop()
+        end
+    end
+})
+
+healthSection:Slider({
+    Title = "设置血量",
+    Value = { Min = 100, Max = 10000, Default = 100 },
+    Callback = function(Value)
+        _G.Health.Health = Value
+    end
+})
+
+healthSection:Input({
+    Title = "设置血量",
+    Value = "",
+    PlaceholderText = "输入血量值",
+    ClearTextOnFocus = false,
+    Callback = function(Value)
+        local health = tonumber(Value)
+        if health then
+            _G.Health.Health = health
+        end
+    end
+})
+
+healthSection:Toggle({
+    Title = "开启/关闭血量上限",
+    Default = false,
+    Callback = function(Value)
+        _G.Health.MaxHealthEnabled = Value
+        if _G.Health.Enabled or _G.Health.MaxHealthEnabled then
+            _G.HealthFunctions.start()
+        else
+            _G.HealthFunctions.stop()
+        end
+    end
+})
+
+healthSection:Slider({
+    Title = "设置血量上限",
+    Value = { Min = 100, Max = 10000, Default = 100 },
+    Callback = function(Value)
+        _G.Health.MaxHealth = Value
+    end
+})
+
+healthSection:Input({
+    Title = "设置血量上限",
+    Value = "",
+    PlaceholderText = "输入血量上限值",
+    ClearTextOnFocus = false,
+    Callback = function(Value)
+        local maxHealth = tonumber(Value)
+        if maxHealth then
+            _G.Health.MaxHealth = maxHealth
+        end
+    end
+})
+
+local gravitySection = about:section({
+    Title = "重力",
+    Opened = false
+})
+
+_G.Gravity = {
+    Enabled = false,
+    NoGravity = false,
+    CurrentGravity = 196.2,
+    LoopConnection = nil
+}
+
+local function applyGravity()
+    if not _G.Gravity.Enabled then return end
+    if _G.Gravity.NoGravity then
+        game.Workspace.Gravity = 0
+    else
+        game.Workspace.Gravity = _G.Gravity.CurrentGravity
+    end
+end
+
+local function resetGravity()
+    game.Workspace.Gravity = 196.2
+end
+
+local function startGravityLoop()
+    if _G.Gravity.LoopConnection then
+        _G.Gravity.LoopConnection:Disconnect()
+    end
+    _G.Gravity.LoopConnection = RunService.Heartbeat:Connect(function()
+        applyGravity()
+    end)
+end
+
+local function stopGravityLoop()
+    if _G.Gravity.LoopConnection then
+        _G.Gravity.LoopConnection:Disconnect()
+        _G.Gravity.LoopConnection = nil
+    end
+    resetGravity()
+end
+
+_G.GravityFunctions = {
+    apply = applyGravity,
+    reset = resetGravity,
+    start = startGravityLoop,
+    stop = stopGravityLoop
+}
+
+gravitySection:Toggle({
+    Title = "开启/关闭修改重力",
+    Default = false,
+    Callback = function(state)
+        _G.Gravity.Enabled = state
+        if state then
+            _G.GravityFunctions.apply()
+            _G.GravityFunctions.start()
+        else
+            _G.GravityFunctions.stop()
+        end
+    end
+})
+
+gravitySection:Slider({
+    Title = "设置重力值",
+    Value = { Min = 0, Max = 1000, Default = 196.2 },
+    Callback = function(Value)
+        _G.Gravity.CurrentGravity = tonumber(Value) or _G.Gravity.CurrentGravity
+        if _G.Gravity.Enabled and not _G.Gravity.NoGravity then
+            _G.GravityFunctions.apply()
+        end
+    end
+})
+
+gravitySection:Toggle({
+    Title = "无重力模式",
+    Default = false,
+    Callback = function(Value)
+        _G.Gravity.NoGravity = Value
+        if _G.Gravity.Enabled then
+            _G.GravityFunctions.apply()
+        end
+    end
+})
+
+local nightVisionSection = about:section({
+    Title = "亮度",
+    Opened = false
+})
+
+local Lighting = game:GetService("Lighting")
+local NightVision = {
+    Active = false,
+    Brightness = 1,
+    OriginalSettings = {
+        Ambient = Lighting.Ambient,
+        OutdoorAmbient = Lighting.OutdoorAmbient,
+        Brightness = Lighting.Brightness,
+        ClockTime = Lighting.ClockTime
+    },
+    Connection = nil
+}
+
+nightVisionSection:Slider({
+    Title = "设置夜视亮度",
+    Value = { Min = 1, Max = 30, Default = 1 },
+    Callback = function(Value)
+        NightVision.Brightness = Value
+        if NightVision.Active then
+            Lighting.Brightness = Value
+        end
+    end
+})
+
+nightVisionSection:Toggle({
+    Title = "开启/关闭夜视",
+    Default = false,
+    Callback = function(Enabled)
+        if NightVision.Connection then
+            NightVision.Connection:Disconnect()
+            NightVision.Connection = nil
+        end
+        NightVision.Active = Enabled
+        if Enabled then
+            Lighting.Ambient = Color3.new(1, 1, 1)
+            Lighting.OutdoorAmbient = Color3.new(1, 1, 1)
+            Lighting.Brightness = NightVision.Brightness
+            Lighting.ClockTime = 12
+            NightVision.Connection = RunService.Heartbeat:Connect(function()
+                Lighting.Ambient = Color3.new(1, 1, 1)
+                Lighting.OutdoorAmbient = Color3.new(1, 1, 1)
+                Lighting.Brightness = NightVision.Brightness
+            end)
+        else
+            for setting, value in pairs(NightVision.OriginalSettings) do
+                Lighting[setting] = value
+            end
+        end
+    end
+})
+
+local cameraSection = about:section({
+    Title = "相机",
+    Opened = false
+})
+
+_G.Camera = {
+    ZoomEnabled = false,
+    FOVEnabled = false,
+    ZoomDistance = 128,
+    FieldOfView = 70,
+    Connection = nil
+}
+
+local function applyCameraSettings()
+    if not LocalPlayer then return end
+    if _G.Camera.ZoomEnabled then
+        LocalPlayer.CameraMaxZoomDistance = _G.Camera.ZoomDistance
+    end
+    if _G.Camera.FOVEnabled and game.Workspace.CurrentCamera then
+        game.Workspace.CurrentCamera.FieldOfView = _G.Camera.FieldOfView
+    end
+end
+
+local function resetCameraSettings()
+    if LocalPlayer then
+        LocalPlayer.CameraMaxZoomDistance = 128
+    end
+    if game.Workspace.CurrentCamera then
+        game.Workspace.CurrentCamera.FieldOfView = 70
+    end
+end
+
+local function startCameraLoop()
+    if _G.Camera.Connection then
+        _G.Camera.Connection:Disconnect()
+    end
+    _G.Camera.Connection = RunService.Heartbeat:Connect(function()
+        applyCameraSettings()
+    end
+end
+
+local function stopCameraLoop()
+    if _G.Camera.Connection then
+        _G.Camera.Connection:Disconnect()
+        _G.Camera.Connection = nil
+    end
+    resetCameraSettings()
+end
+
+game.Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+    if _G.Camera.FOVEnabled and game.Workspace.CurrentCamera then
+        game.Workspace.CurrentCamera.FieldOfView = _G.Camera.FieldOfView
+    end
+end)
+
+_G.CameraFunctions = {
+    apply = applyCameraSettings,
+    reset = resetCameraSettings,
+    start = startCameraLoop,
+    stop = stopCameraLoop
+}
+
+cameraSection:Toggle({
+    Title = "开启/关闭缩放距离",
+    Default = false,
+    Callback = function(Value)
+        _G.Camera.ZoomEnabled = Value
+        if _G.Camera.ZoomEnabled or _G.Camera.FOVEnabled then
+            _G.CameraFunctions.start()
+        else
+            _G.CameraFunctions.stop()
+        end
+    end
+})
+
+cameraSection:Slider({
+    Title = "设置缩放距离",
+    Value = { Min = 128, Max = 200000, Default = 128 },
+    Callback = function(Value)
+        _G.Camera.ZoomDistance = Value
+        if _G.Camera.ZoomEnabled then
+            game:GetService("Players").LocalPlayer.CameraMaxZoomDistance = Value
+        end
+    end
+})
+
+cameraSection:Toggle({
+    Title = "开启/关闭焦距",
+    Default = false,
+    Callback = function(Value)
+        _G.Camera.FOVEnabled = Value
+        if _G.Camera.ZoomEnabled or _G.Camera.FOVEnabled then
+            _G.CameraFunctions.start()
+        else
+            _G.CameraFunctions.stop()
+        end
+    end
+})
+
+cameraSection:Slider({
+    Title = "设置焦距",
+    Value = { Min = 0.1, Max = 250, Default = 70 },
+    Callback = function(Value)
+        _G.Camera.FieldOfView = Value
+        if _G.Camera.FOVEnabled and game.Workspace.CurrentCamera then
+            game.Workspace.CurrentCamera.FieldOfView = Value
+        end
+    end
+})
+
+local heightSection = about:section({
+    Title = "高度",
+    Opened = false
+})
+
+local heightConfig = {
+    currentHeight = 2,
+    originalHeight = 2,
+    enabled = false
+}
+
+local function applyHeight()
+    local char = LocalPlayer.Character
+    if char and char:FindFirstChild("Humanoid") then
+        char.Humanoid.HipHeight = heightConfig.enabled and heightConfig.currentHeight or heightConfig.originalHeight
+    end
+end
+
+local function initOriginalHeight()
+    local char = LocalPlayer.Character
+    if char and char:FindFirstChild("Humanoid") then
+        heightConfig.originalHeight = char.Humanoid.HipHeight
+    end
+end
+
+initOriginalHeight()
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid")
+    heightConfig.originalHeight = char.Humanoid.HipHeight
+    applyHeight()
+end)
+
+heightSection:Input({
+    Title = "设置高度",
+    Value = "",
+    PlaceholderText = "输入高度值",
+    ClearTextOnFocus = false,
+    Callback = function(value)
+        heightConfig.currentHeight = tonumber(value) or heightConfig.currentHeight
+        if heightConfig.enabled then applyHeight()
+    end
+})
+
+heightSection:Toggle({
+    Title = "开启/关闭修改高度",
+    Default = false,
+    Callback = function(state)
+        heightConfig.enabled = state
+        applyHeight()
+    end
+})
+
+local runSection = about:section({
+    Title = "快速跑步",
+    Opened = false
+})
+
+local Speed = 0
+local sudu = nil
+
+runSection:Input({
+    Title = "设置快速跑步",
+    Value = "",
+    PlaceholderText = "输入速度",
+    ClearTextOnFocus = false,
+    Callback = function(v)
+        Speed = tonumber(v) or 0
+    end
+})
+
+runSection:Toggle({
+    Title = "开启/关闭快速跑步",
+    Default = false,
+    Callback = function(v)
+        if v == true then
+            sudu = RunService.Heartbeat:Connect(function()
+                if LocalPlayer.Character and LocalPlayer.Character.Humanoid and LocalPlayer.Character.Humanoid.Parent then
+                    if LocalPlayer.Character.Humanoid.MoveDirection.Magnitude > 0 then
+                        LocalPlayer.Character:TranslateBy(LocalPlayer.Character.Humanoid.MoveDirection * Speed / 0.5)
+                    end
+                end
+            end)
+        elseif not v and sudu then
+            sudu:Disconnect()
+            sudu = nil
+        end
+    end
+})
+
+local about = MainSection:Tab({ 
+    Title = "通用功能页~", 
+    Icon = "rbxassetid://18941716391",
+    PremiumOnly = true
 })
 
 about:Button({
