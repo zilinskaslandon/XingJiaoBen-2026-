@@ -1753,7 +1753,7 @@ about3:Label({
 
 local about4 = MainSection:Tab({
     Title = "念力",
-    Icon = "rbxassetid://18941716391",
+    Icon = "rbxassetid://128785696900047",
     PremiumOnly = true
 })
 
@@ -1785,7 +1785,7 @@ about4:Label({ Title = "K - 回到手中" })
 
 local about5 = MainSection:Tab({
     Title = "子弹追踪",
-    Icon = "rbxassetid://18941716391",
+    Icon = "rbxassetid://128785696900047",
     PremiumOnly = true
 })
 
