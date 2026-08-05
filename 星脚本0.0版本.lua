@@ -1844,10 +1844,10 @@ about5:Button({
 about5:Label({ Title = "J - 飞起来" })
 about5:Label({ Title = "K - 回到手中" })
 
-local about6 = MainSection:Tab({ 
-       Title = "子弹追踪~", 
-       Icon = "rbxassetid://18941716391",
-       PremiumOnly = true
+local about6 = MainSection:Tab({
+    Title = "子弹追踪~",
+    Icon = "rbxassetid://18941716391",
+    PremiumOnly = true
 })
 
 local Workspace = game:GetService("Workspace")
@@ -1856,7 +1856,6 @@ local LocalPlayer = Players.LocalPlayer
 local Camera = Workspace.CurrentCamera
 local RunService = game:GetService("RunService")
 
-local old
 local main = {
     enable = false,
     teamcheck = false,
@@ -2004,7 +2003,7 @@ end
 
 _G.BulletTrack = main
 
-old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+local old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
     local method = getnamecallmethod()
     local args = {...}
     if method == "Raycast" and not checkcaller() then
