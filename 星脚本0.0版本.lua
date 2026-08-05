@@ -2048,7 +2048,11 @@ about6:Toggle({
     Default = false,
     Callback = function(state)
         main.enable = state
-        if state then updatePlayerCache() else playerCache = {} end
+        if state then
+            updatePlayerCache()
+        else
+            playerCache = {}
+        end
     end
 })
 
@@ -2075,7 +2079,11 @@ about6:Toggle({
     Default = false,
     Callback = function(state)
         main.enablenpc = state
-        if state then updateNPCCache() else npcCache = {} end
+        if state then
+            updateNPCCache()
+        else
+            npcCache = {}
+        end
     end
 })
 
@@ -2086,8 +2094,12 @@ about6:Toggle({
         main.aliveCheck = state
         playerCache = {}
         npcCache = {}
-        if main.enable then updatePlayerCache() end
-        if main.enablenpc then updateNPCCache() end
+        if main.enable then
+            updatePlayerCache()
+        end
+        if main.enablenpc then
+            updateNPCCache()
+        end
     end
 })
 
@@ -2098,8 +2110,12 @@ about6:Toggle({
         main.wallCheck = state
         playerCache = {}
         npcCache = {}
-        if main.enable then updatePlayerCache() end
-        if main.enablenpc then updateNPCCache() end
+        if main.enable then
+            updatePlayerCache()
+        end
+        if main.enablenpc then
+            updateNPCCache()
+        end
     end
 })
 
@@ -2110,7 +2126,11 @@ about6:Slider({
         main.trackDistance = value
         playerCache = {}
         npcCache = {}
-        if main.enable then updatePlayerCache() end
-        if main.enablenpc then updateNPCCache() end
+        if main.enable then
+            updatePlayerCache()
+        end
+        if main.enablenpc then
+            updateNPCCache()
+        end
     end
 })
