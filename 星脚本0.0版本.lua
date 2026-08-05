@@ -1778,306 +1778,36 @@ about3:Label({
     Title = "🔹 noclip — 穿墙"
 })
 
-local about4 = MainSection:Tab({
-    Title = "念力",
-    Icon = "rbxassetid://128785696900047",
-    PremiumOnly = true
+local about = MainSection:Tab({ 
+       Title = "标签页", 
+       Icon = "rbxassetid://18941716391",
+       PremiumOnly = true
 })
 
 about4:Button({
-    Title = "念力工具",
+    Title = "Synapse X",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/Mindpower.lua"))()
+        loadstring(game:HttpGet("https://pastebin.com/raw/tWGxhNq0"))()
     end
 })
-
-about4:Label({ Title = "Q - 靠近" })
-about4:Label({ Title = "E - 离远" })
-about4:Label({ Title = "Y - 投掷" })
-about4:Label({ Title = "J - 超级投掷" })
-about4:Label({ Title = "U - 使物体自转" })
-about4:Label({ Title = "P - 使物体悬浮在空中" })
-about4:Label({ Title = "X - 走得更远一点" })
-about4:Label({ Title = "L - 使方块变直并锁定在前部" })
 
 about4:Button({
-    Title = "让手上的道具飘起来",
+    Title = "Synapse X 重制版",
     Callback = function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/WmD8MuSx"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/Chillz-s-scripts/main/Synapse-X-Remake.lua"))()
     end
 })
 
-about4:Label({ Title = "J - 飞起来" })
-about4:Label({ Title = "K - 回到手中" })
-
-local about5 = MainSection:Tab({
-    Title = "子弹追踪",
-    Icon = "rbxassetid://128785696900047",
-    PremiumOnly = true
-})
-
-local Workspace = game:GetService("Workspace")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local Camera = Workspace.CurrentCamera
-local RunService = game:GetService("RunService")
-
-local old
-local main = {
-    enable = false,
-    teamcheck = false,
-    friendcheck = false,
-    enablenpc = false,
-    trackDistance = 500,
-    aliveCheck = false,
-    wallCheck = false
-}
-
-local playerCache = {}
-local npcCache = {}
-local lastCacheUpdate = 0
-local CACHE_UPDATE_INTERVAL = 0.1
-
-local function isVisible(targetHead)
-    if not main.wallCheck then return true end
-    if not LocalPlayer.Character then return false end
-    local cameraPart = Camera or Workspace.CurrentCamera
-    if not cameraPart then return false end
-    local origin = cameraPart.CFrame.Position
-    local target = targetHead.Position
-    local raycastParams = RaycastParams.new()
-    raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-    raycastParams.FilterDescendantsInstances = {
-        LocalPlayer.Character,
-        cameraPart,
-        Workspace:FindFirstChild("Camera")
-    }
-    raycastParams.IgnoreWater = true
-    local direction = (target - origin)
-    local distance = direction.Magnitude
-    local unitDirection = direction.Unit
-    local result = Workspace:Raycast(origin, unitDirection * distance, raycastParams)
-    if not result then return true end
-    local hitInstance = result.Instance
-    if hitInstance then
-        local targetCharacter = targetHead.Parent
-        if targetCharacter then
-            if hitInstance:IsDescendantOf(targetCharacter) then return true end
-            if hitInstance:IsA("Terrain") or (hitInstance:IsA("Part") and hitInstance.Material == Enum.Material.Water) then return true end
-        end
-    end
-    return false
-end
-
-local function isAlive(character)
-    if not character then return false end
-    if not main.aliveCheck then return true end
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return false end
-    if humanoid.Health <= 0 then return false end
-    if humanoid:GetState() == Enum.HumanoidStateType.Dead then return false end
-    local head = character:FindFirstChild("Head")
-    local root = character:FindFirstChild("HumanoidRootPart")
-    if not head or not root then return false end
-    return true
-end
-
-local function updatePlayerCache()
-    local currentTime = tick()
-    if currentTime - lastCacheUpdate < CACHE_UPDATE_INTERVAL then return end
-    lastCacheUpdate = currentTime
-    playerCache = {}
-    if not LocalPlayer.Character or not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then return end
-    local localHrp = LocalPlayer.Character.HumanoidRootPart
-    local localPos = localHrp.Position
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character then
-            local skip = false
-            if main.teamcheck and player.Team == LocalPlayer.Team then skip = true end
-            if not skip and main.friendcheck and LocalPlayer:IsFriendsWith(player.UserId) then skip = true end
-            if not skip then
-                local character = player.Character
-                local root = character:FindFirstChild("HumanoidRootPart")
-                local head = character:FindFirstChild("Head")
-                local humanoid = character:FindFirstChildOfClass("Humanoid")
-                if root and head and humanoid and humanoid.Health > 0 and isAlive(character) then
-                    local distance = (root.Position - localPos).Magnitude
-                    if distance < main.trackDistance then
-                        if main.wallCheck then
-                            if isVisible(head) then
-                                table.insert(playerCache, { head = head, root = root, distance = distance, position = root.Position })
-                            end
-                        else
-                            table.insert(playerCache, { head = head, root = root, distance = distance, position = root.Position })
-                        end
-                    end
-                end
-            end
-        end
-    end
-    table.sort(playerCache, function(a, b) return a.distance < b.distance end)
-end
-
-local function updateNPCCache()
-    if not main.enablenpc then return end
-    local currentTime = tick()
-    if currentTime - lastCacheUpdate < CACHE_UPDATE_INTERVAL then return end
-    npcCache = {}
-    if not LocalPlayer.Character or not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then return end
-    local localHrp = LocalPlayer.Character.HumanoidRootPart
-    local localPos = localHrp.Position
-    for _, object in ipairs(Workspace:GetChildren()) do
-        if object:IsA("Model") then
-            local humanoid = object:FindFirstChildOfClass("Humanoid")
-            local hrp = object:FindFirstChild("HumanoidRootPart") or object.PrimaryPart
-            local head = object:FindFirstChild("Head")
-            if humanoid and hrp and head and humanoid.Health > 0 and isAlive(object) then
-                local isPlayer = false
-                for _, pl in ipairs(Players:GetPlayers()) do
-                    if pl.Character == object then isPlayer = true break end
-                end
-                if not isPlayer then
-                    local distance = (hrp.Position - localPos).Magnitude
-                    if distance < main.trackDistance then
-                        if main.wallCheck then
-                            if isVisible(head) then
-                                table.insert(npcCache, { head = head, hrp = hrp, distance = distance, position = hrp.Position })
-                            end
-                        else
-                            table.insert(npcCache, { head = head, hrp = hrp, distance = distance, position = hrp.Position })
-                        end
-                    end
-                end
-            end
-        end
-    end
-    table.sort(npcCache, function(a, b) return a.distance < b.distance end)
-end
-
-local function getClosestHead()
-    if not main.enable then return nil end
-    updatePlayerCache()
-    if #playerCache > 0 then return playerCache[1].head end
-    return nil
-end
-
-local function getClosestNpcHead()
-    if not main.enablenpc then return nil end
-    updateNPCCache()
-    if #npcCache > 0 then return npcCache[1].head end
-    return nil
-end
-
-_G.BulletTrack = main
-
-old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-    local method = getnamecallmethod()
-    local args = {...}
-    if method == "Raycast" and not checkcaller() then
-        local origin = args[1] or Camera.CFrame.Position
-        if main.enable then
-            local closestHead = getClosestHead()
-            if closestHead and closestHead.Parent then
-                return {
-                    Instance = closestHead,
-                    Position = closestHead.Position,
-                    Normal = (origin - closestHead.Position).Unit,
-                    Material = Enum.Material.Plastic,
-                    Distance = (closestHead.Position - origin).Magnitude
-                }
-            end
-        end
-        if main.enablenpc then
-            local closestNpcHead = getClosestNpcHead()
-            if closestNpcHead and closestNpcHead.Parent then
-                return {
-                    Instance = closestNpcHead,
-                    Position = closestNpcHead.Position,
-                    Normal = (origin - closestNpcHead.Position).Unit,
-                    Material = Enum.Material.Plastic,
-                    Distance = (closestNpcHead.Position - origin).Magnitude
-                }
-            end
-        end
-    end
-    return old(self, ...)
-end))
-
-if RunService:IsClient() then
-    RunService.Heartbeat:Connect(function()
-        if main.enable then updatePlayerCache() end
-        if main.enablenpc then updateNPCCache() end
-    end)
-end
-
-about5:Toggle({
-    Title = "开启/关闭子弹追踪",
-    Default = false,
-    Callback = function(state)
-        main.enable = state
-        if state then updatePlayerCache() else playerCache = {} end
+about4:Button({
+    Title = "阿尔宙斯 V3",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/chillz-workshop/main/Arceus%20X%20V3"))()
     end
 })
 
-about5:Toggle({
-    Title = "队伍验证",
-    Default = false,
-    Callback = function(state)
-        main.teamcheck = state
-        playerCache = {}
-    end
-})
-
-about5:Toggle({
-    Title = "好友验证",
-    Default = false,
-    Callback = function(state)
-        main.friendcheck = state
-        playerCache = {}
-    end
-})
-
-about5:Toggle({
-    Title = "NPC子弹追踪",
-    Default = false,
-    Callback = function(state)
-        main.enablenpc = state
-        if state then updateNPCCache() else npcCache = {} end
-    end
-})
-
-about5:Toggle({
-    Title = "活体检测",
-    Default = false,
-    Callback = function(state)
-        main.aliveCheck = state
-        playerCache = {}
-        npcCache = {}
-        if main.enable then updatePlayerCache() end
-        if main.enablenpc then updateNPCCache() end
-    end
-})
-
-about5:Toggle({
-    Title = "墙体检测",
-    Default = false,
-    Callback = function(state)
-        main.wallCheck = state
-        playerCache = {}
-        npcCache = {}
-        if main.enable then updatePlayerCache() end
-        if main.enablenpc then updateNPCCache() end
-    end
-})
-
-about5:Slider({
-    Title = "追踪距离",
-    Value = { Min = 50, Max = 2000, Default = 500 },
-    Callback = function(value)
-        main.trackDistance = value
-        playerCache = {}
-        npcCache = {}
-        if main.enable then updatePlayerCache() end
-        if main.enablenpc then updateNPCCache() end
+about4:Button({
+    Title = "水滴注入器",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/crceck123/roblox-script/main/hydrogen_skin_for_evon.lua"))()
     end
 })
