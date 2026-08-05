@@ -277,6 +277,61 @@ about:Toggle({
     end
 })
 
+about:Toggle({
+    Title = "开启/关闭跳跃",
+    Default = false,
+    Callback = function(Value)
+        _G.Jump.Enabled = Value
+        if Value then
+            _G.JumpFunctions.start()
+        else
+            _G.JumpFunctions.stop()
+        end
+    end
+})
+
+about:Dropdown({
+    Title = "跳跃模式",
+    Values = {"Humanoid", "CFrame", "Velocity", "Infinite"},
+    Value = "Humanoid",
+    Callback = function(Value)
+        _G.Jump.Mode = Value
+        if _G.Jump.Enabled then
+            _G.JumpFunctions.stop()
+            _G.JumpFunctions.start()
+        end
+    end
+})
+
+about:Slider({
+    Title = "设置跳跃高度",
+    Value = { Min = 50, Max = 400, Default = 50 },
+    Callback = function(Value)
+        _G.Jump.JumpPower = Value
+    end
+})
+
+about:Input({
+    Title = "设置跳跃倍数",
+    Value = "",
+    PlaceholderText = "输入倍数",
+    ClearTextOnFocus = false,
+    Callback = function(Value)
+        local multiplier = tonumber(Value)
+        if multiplier and multiplier > 0 then
+            _G.Jump.Multiplier = multiplier
+        end
+    end
+})
+
+about:Toggle({
+    Title = "无限跳跃",
+    Default = false,
+    Callback = function(Value)
+        _G.Jump.InfJ = Value
+    end
+})
+
 -- 第二个Tab: 通用功能（关键修复：变量名用 about2）
 local about2 = MainSection:Tab({
     Title = "通用功能",
