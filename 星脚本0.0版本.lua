@@ -1811,3 +1811,35 @@ about4:Button({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/crceck123/roblox-script/main/hydrogen_skin_for_evon.lua"))()
     end
 })
+
+local about5 = MainSection:Tab({ 
+       Title = "念力", 
+       Icon = "rbxassetid://18941716391",
+       PremiumOnly = true
+})
+
+about5:Button({
+    Title = "念力工具",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/Mindpower.lua"))()
+    end
+})
+
+about5:Label({ Title = "Q - 靠近" })
+about5:Label({ Title = "E - 离远" })
+about5:Label({ Title = "Y - 投掷" })
+about5:Label({ Title = "J - 超级投掷" })
+about5:Label({ Title = "U - 使物体自转" })
+about5:Label({ Title = "P - 使物体悬浮在空中" })
+about5:Label({ Title = "X - 走得更远一点" })
+about5:Label({ Title = "L - 使方块变直并锁定在前部" })
+
+about5:Button({
+    Title = "让手上的道具飘起来",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/WmD8MuSx"))()
+    end
+})
+
+about5:Label({ Title = "J - 飞起来" })
+about5:Label({ Title = "K - 回到手中" })
