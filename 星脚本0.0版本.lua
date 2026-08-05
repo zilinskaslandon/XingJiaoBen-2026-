@@ -1678,104 +1678,104 @@ about3:Button({
     end
 })
 
-about3:Label({
-    Title = "🔹 bang — 能够掀人"
+about3:Paragraph({
+    Title = "🔹 bang — 能够掀人",
 })
 
-about3:Label({
-    Title = "🔹 noface — 没有脸"
+about3:Paragraph({
+    Title = "🔹 noface — 没有脸",
 })
 
-about3:Label({
-    Title = "🔹 headsit — 坐在玩家头上加玩家名字"
+about3:Paragraph({
+    Title = "🔹 headsit — 坐在玩家头上加玩家名字",
 })
 
-about3:Label({
-    Title = "🔹 float — 悬浮"
+about3:Paragraph({
+    Title = "🔹 float — 悬浮",
 })
 
-about3:Label({
-    Title = "🔹 re — 重置人物但位置不变"
+about3:Paragraph({
+    Title = "🔹 re — 重置人物但位置不变",
 })
 
-about3:Label({
-    Title = "🔹 dance — 跳舞"
+about3:Paragraph({
+    Title = "🔹 dance — 跳舞",
 })
 
-about3:Label({
-    Title = "🔹 nolegs — 没有腿"
+about3:Paragraph({
+    Title = "🔹 nolegs — 没有腿",
 })
 
-about3:Label({
-    Title = "🔹 walltp — 碰到墙壁传送到墙壁顶部"
+about3:Paragraph({
+    Title = "🔹 walltp — 碰到墙壁传送到墙壁顶部",
 })
 
-about3:Label({
-    Title = "🔹 bring+玩家名字 — 让玩家吸到你手上"
+about3:Paragraph({
+    Title = "🔹 bring+玩家名字 — 让玩家吸到你手上",
 })
 
-about3:Label({
-    Title = "🔹 carpet — 趴着走"
+about3:Paragraph({
+    Title = "🔹 carpet — 趴着走",
 })
 
-about3:Label({
-    Title = "🔹 infjump — 无限跳跃"
+about3:Paragraph({
+    Title = "🔹 infjump — 无限跳跃",
 })
 
-about3:Label({
-    Title = "🔹 xray — 透视地图所有物体变透明"
+about3:Paragraph({
+    Title = "🔹 xray — 透视地图所有物体变透明",
 })
 
-about3:Label({
-    Title = "🔹 bang+玩家开头两个英文 — 吸在玩家身后"
+about3:Paragraph({
+    Title = "🔹 bang+玩家开头两个英文 — 吸在玩家身后",
 })
 
-about3:Label({
-    Title = "🔹 noanim — 没有动作"
+about3:Paragraph({
+    Title = "🔹 noanim — 没有动作",
 })
 
-about3:Label({
-    Title = "🔹 spin — 人物旋转"
+about3:Paragraph({
+    Title = "🔹 spin — 人物旋转",
 })
 
-about3:Label({
-    Title = "🔹 sitwalk — 坐着走"
+about3:Paragraph({
+    Title = "🔹 sitwalk — 坐着走",
 })
 
-about3:Label({
-    Title = "🔹 trip — 让你的人物摔倒"
+about3:Paragraph({
+    Title = "🔹 trip — 让你的人物摔倒",
 })
 
-about3:Label({
-    Title = "🔹 antikick — 防踢"
+about3:Paragraph({
+    Title = "🔹 antikick — 防踢",
 })
 
-about3:Label({
-    Title = "🔹 lay — 躺下"
+about3:Paragraph({
+    Title = "🔹 lay — 躺下",
 })
 
-about3:Label({
-    Title = "🔹 sit — 坐"
+about3:Paragraph({
+    Title = "🔹 sit — 坐",
 })
 
-about3:Label({
-    Title = "🔹 god — 加血"
+about3:Paragraph({
+    Title = "🔹 god — 加血",
 })
 
-about3:Label({
-    Title = "🔹 invisfling — 配合加血可以旋转"
+about3:Paragraph({
+    Title = "🔹 invisfling — 配合加血可以旋转",
 })
 
-about3:Label({
-    Title = "🔹 goto+玩家名字 — 传送"
+about3:Paragraph({
+    Title = "🔹 goto+玩家名字 — 传送",
 })
 
-about3:Label({
-    Title = "🔹 unxray — 关闭透视"
+about3:Paragraph({
+    Title = "🔹 unxray — 关闭透视",
 })
 
-about3:Label({
-    Title = "🔹 noclip — 穿墙"
+about3:Paragraph({
+    Title = "🔹 noclip — 穿墙",
 })
 
 local about4 = MainSection:Tab({ 
