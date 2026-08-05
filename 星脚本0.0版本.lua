@@ -171,7 +171,7 @@ end
 
 Window:EditOpenButton({
     Title = "<font color='#0000FF'>星脚本</font>-<font color='#00FF00'>123</font> ",
-    Icon = "rbxassetid://18941716391",
+    Icon = "rbxassetid://128785696900047",
     CornerRadius = UDim.new(1, 14),  
     StrokeThickness = 2,
     Color = ColorSequence.new({
