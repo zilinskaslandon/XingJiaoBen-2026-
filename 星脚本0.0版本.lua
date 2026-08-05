@@ -1825,14 +1825,14 @@ about5:Button({
     end
 })
 
-about5:Label({ Title = "Q - 靠近" })
-about5:Label({ Title = "E - 离远" })
-about5:Label({ Title = "Y - 投掷" })
-about5:Label({ Title = "J - 超级投掷" })
-about5:Label({ Title = "U - 使物体自转" })
-about5:Label({ Title = "P - 使物体悬浮在空中" })
-about5:Label({ Title = "X - 走得更远一点" })
-about5:Label({ Title = "L - 使方块变直并锁定在前部" })
+about5:Paragraph({ Title = "Q - 靠近" })
+about5:Paragraph({ Title = "E - 离远" })
+about5:Paragraph({ Title = "Y - 投掷" })
+about5:Paragraph({ Title = "J - 超级投掷" })
+about5:Paragraph({ Title = "U - 使物体自转" })
+about5:Paragraph({ Title = "P - 使物体悬浮在空中" })
+about5:Paragraph({ Title = "X - 走得更远一点" })
+about5:Paragraph({ Title = "L - 使方块变直并锁定在前部" })
 
 about5:Button({
     Title = "让手上的道具飘起来",
@@ -1841,8 +1841,8 @@ about5:Button({
     end
 })
 
-about5:Label({ Title = "J - 飞起来" })
-about5:Label({ Title = "K - 回到手中" })
+about5:Paragraph({ Title = "J - 飞起来" })
+about5:Paragraph({ Title = "K - 回到手中" })
 
 local about6 = MainSection:Tab({ 
        Title = "开发工具", 
