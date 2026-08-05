@@ -220,7 +220,7 @@ local MainSection = Window:Section({
 -- 第一个Tab: 本地玩家
 local about = MainSection:Tab({
     Title = "本地玩家",
-    Icon = "rbxassetid://18941716391",
+    Icon = "rbxassetid://140101846619540",
     PremiumOnly = true
 })
 
