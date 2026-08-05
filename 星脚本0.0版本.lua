@@ -212,12 +212,46 @@ _G.MoveSpeedFunctions = {
     end
 }
 
+_G.Jump = {
+    Enabled = false,
+    JumpPower = 50,
+    Mode = "Humanoid",
+    Multiplier = 1,
+    InfJ = false,
+    Connection = nil,
+    JumpRequestConnection = nil
+}
+
+_G.JumpFunctions = {
+    start = function()
+        print("跳跃已开启")
+    end,
+    stop = function()
+        print("跳跃已关闭")
+    end
+}
+
+_G.Health = {
+    Enabled = false,
+    MaxHealthEnabled = false,
+    Health = 100,
+    MaxHealth = 100
+}
+
+_G.HealthFunctions = {
+    start = function()
+        print("血量已开启")
+    end,
+    stop = function()
+        print("血量已关闭")
+    end
+}
+
 local MainSection = Window:Section({
     Title = "打开侧边栏",
     Opened = true
 })
 
--- 第一个Tab: 本地玩家
 local about = MainSection:Tab({
     Title = "本地玩家",
     Icon = "rbxassetid://128785696900047",
@@ -400,7 +434,6 @@ about:Input({
     end
 })
 
--- 高度
 local heightConfig = {
     currentHeight = 2,
     originalHeight = 2,  
@@ -449,7 +482,6 @@ about:Toggle({
     end
 })
 
--- 重力
 _G.Gravity = {
     Enabled = false,
     NoGravity = false,
@@ -530,7 +562,6 @@ about:Toggle({
     end
 })
 
--- 夜视
 local Lighting = game:GetService("Lighting")
 local NightVision = {
     Active = false,
@@ -582,7 +613,6 @@ about:Toggle({
     end
 })
 
--- 相机
 _G.Camera = {
     ZoomEnabled = false,
     FOVEnabled = false,
@@ -688,7 +718,6 @@ about:Slider({
     end
 })
 
--- 快速跑步
 local Speed = 0
 local sudu = nil
 
@@ -722,7 +751,6 @@ about:Toggle({
     end
 })
 
--- 第二个Tab: 通用功能（关键修复：变量名用 about2）
 local about2 = MainSection:Tab({
     Title = "通用功能",
     Icon = "rbxassetid://18941716391",
@@ -1077,8 +1105,7 @@ about2:Button({
                 b.Parent = game.Players.LocalPlayer.Backpack
             end
         end
-    end
-})
+    end})
 
 about2:Button({
     Title = "获取当前道具",
