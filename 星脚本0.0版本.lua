@@ -1778,8 +1778,8 @@ about3:Label({
     Title = "🔹 noclip — 穿墙"
 })
 
-local about = MainSection:Tab({ 
-       Title = "标签页", 
+local about4 = MainSection:Tab({ 
+       Title = "其他注入器", 
        Icon = "rbxassetid://18941716391",
        PremiumOnly = true
 })
