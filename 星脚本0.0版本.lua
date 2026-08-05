@@ -1587,3 +1587,166 @@ about2:Toggle({
         end
     end
 })
+
+local about3 = MainSection:Tab({
+    Title = "游戏设置",
+    Icon = "rbxassetid://18941716391",
+    PremiumOnly = true
+})
+
+about3:Button({
+    Title = "重新加入游戏",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastefy.app/XXabqNiv/raw"))()
+    end
+})
+
+about3:Button({
+    Title = "保存游戏",
+    Callback = function()
+        saveinstance()
+    end
+})
+
+about3:Button({
+    Title = "离开游戏",
+    Callback = function()
+        game:Shutdown()
+    end
+})
+
+local lighting = game:GetService("Lighting")
+local selectedTimeValue = "12:00:00"
+
+about3:Dropdown({
+    Title = "选择时间",
+    Values = {"午夜 00:00", "凌晨 03:00", "清晨 06:00", "上午 09:00", "中午 12:00", "下午 15:00", "傍晚 18:00", "夜晚 21:00"},
+    Value = "中午 12:00",
+    Callback = function(selectedTime)
+        local timeMap = {
+            ["午夜 00:00"] = "00:00:00",
+            ["凌晨 03:00"] = "03:00:00",
+            ["清晨 06:00"] = "06:00:00",
+            ["上午 09:00"] = "09:00:00",
+            ["中午 12:00"] = "12:00:00",
+            ["下午 15:00"] = "15:00:00",
+            ["傍晚 18:00"] = "18:00:00",
+            ["夜晚 21:00"] = "21:00:00"
+        }
+        selectedTimeValue = timeMap[selectedTime] or "12:00:00"
+    end
+})
+
+about3:Button({
+    Title = "确认修改时间",
+    Callback = function()
+        lighting.TimeOfDay = selectedTimeValue
+    end
+})
+
+about3:Button({
+    Title = "指令脚本",
+    Callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'), true))()
+    end
+})
+
+about3:Label({
+    Title = "🔹 bang — 能够掀人"
+})
+
+about3:Label({
+    Title = "🔹 noface — 没有脸"
+})
+
+about3:Label({
+    Title = "🔹 headsit — 坐在玩家头上加玩家名字"
+})
+
+about3:Label({
+    Title = "🔹 float — 悬浮"
+})
+
+about3:Label({
+    Title = "🔹 re — 重置人物但位置不变"
+})
+
+about3:Label({
+    Title = "🔹 dance — 跳舞"
+})
+
+about3:Label({
+    Title = "🔹 nolegs — 没有腿"
+})
+
+about3:Label({
+    Title = "🔹 walltp — 碰到墙壁传送到墙壁顶部"
+})
+
+about3:Label({
+    Title = "🔹 bring+玩家名字 — 让玩家吸到你手上"
+})
+
+about3:Label({
+    Title = "🔹 carpet — 趴着走"
+})
+
+about3:Label({
+    Title = "🔹 infjump — 无限跳跃"
+})
+
+about3:Label({
+    Title = "🔹 xray — 透视地图所有物体变透明"
+})
+
+about3:Label({
+    Title = "🔹 bang+玩家开头两个英文 — 吸在玩家身后"
+})
+
+about3:Label({
+    Title = "🔹 noanim — 没有动作"
+})
+
+about3:Label({
+    Title = "🔹 spin — 人物旋转"
+})
+
+about3:Label({
+    Title = "🔹 sitwalk — 坐着走"
+})
+
+about3:Label({
+    Title = "🔹 trip — 让你的人物摔倒"
+})
+
+about3:Label({
+    Title = "🔹 antikick — 防踢"
+})
+
+about3:Label({
+    Title = "🔹 lay — 躺下"
+})
+
+about3:Label({
+    Title = "🔹 sit — 坐"
+})
+
+about3:Label({
+    Title = "🔹 god — 加血"
+})
+
+about3:Label({
+    Title = "🔹 invisfling — 配合加血可以旋转"
+})
+
+about3:Label({
+    Title = "🔹 goto+玩家名字 — 传送"
+})
+
+about3:Label({
+    Title = "🔹 unxray — 关闭透视"
+})
+
+about3:Label({
+    Title = "🔹 noclip — 穿墙"
+})
