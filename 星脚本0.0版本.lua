@@ -170,7 +170,7 @@ Window.Open = function(...)
 end
 
 Window:EditOpenButton({
-    Title = "<font color='#0000FF'>脚本</font>-<font color='#00FF00'>xx</font> ",
+    Title = "<font color='#0000FF'>星脚本</font>-<font color='#00FF00'>123</font> ",
     Icon = "rbxassetid://18941716391",
     CornerRadius = UDim.new(1, 14),  
     StrokeThickness = 2,
@@ -220,7 +220,7 @@ local MainSection = Window:Section({
 -- 第一个Tab: 本地玩家
 local about = MainSection:Tab({
     Title = "本地玩家",
-    Icon = "rbxassetid://140101846619540",
+    Icon = "rbxassetid://128785696900047",
     PremiumOnly = true
 })
 
