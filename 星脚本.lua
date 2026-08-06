@@ -17933,7 +17933,13 @@ XPHUBNotification:Notification({
     Duration = 3
 })
 
+local PIJIAOBEN = XIAOPI:Tab("伐木2","136169594232359")
+
 local about = PIJIAOBEN:section("伐木2", false)
+
+about:Button("伐木脚本2", function()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/zilinskaslandon/XingJiaoBen-2026-/refs/heads/main/%E4%BC%90%E6%9C%A8%E8%84%9A%E6%9C%AC.Lua"))()
+end)
 
 about:Button("灯塔", function()
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1464.8, 356.3, 3257.2)
