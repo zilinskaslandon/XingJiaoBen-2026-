@@ -92,23 +92,23 @@ end)
 local XPHUBNotification = loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/Roblox-Pi-Script-Notification.lua"))()
 
 XPHUBNotification:Notification({
-    Title = "皮脚本",
-    Text = "欢迎使用皮脚本 \n作者: 小皮 帮助者: 月星",
-    Icon = "rbxassetid://18941716391",
+    Title = "星脚本",
+    Text = "欢迎使用星脚本 \n作者: 小星 帮助者: 小皮",
+    Icon = "rbxassetid://136169594232359",
     Duration = 4
 })
 wait(1.5)
 XPHUBNotification:Notification({
-    Title = "皮脚本",
-    Text = "皮脚本二周年快乐",
-    Icon = "rbxassetid://18941716391",
+    Title = "星脚本",
+    Text = "星脚本诞生",
+    Icon = "rbxassetid://136169594232359",
     Duration = 4
 })
 wait(1.5)
 XPHUBNotification:Notification({
-    Title = "皮脚本",
-    Text = "皮脚本是永久免费的禁止倒卖并且持续更新中 更新速度比较缓慢 请见谅",
-    Icon = "rbxassetid://18941716391",
+    Title = "星脚本",
+    Text = "星脚本是永久免费的禁止倒卖并且持续更新中 更新速度比较缓慢 请见谅",
+    Icon = "rbxassetid://136169594232359",
     Duration = 4
 })
 wait(1.5)
@@ -121,9 +121,9 @@ local vu = game:GetService("VirtualUser")
 		end)
 --------------分割线--------------------------	
 XPHUBNotification:Notification({
-    Title = "皮脚本",
-    Text = "已自动开启防挂机 感谢您使用皮脚本 祝您使用愉快 玩的开心",
-    Icon = "rbxassetid://18941716391",
+    Title = "星脚本",
+    Text = "已自动开启防挂机 感谢您使用星脚本 祝您使用愉快 玩的开心",
+    Icon = "rbxassetid://136169594232359",
     Duration = 4
 })
 --------------分割线-----------------------------
@@ -138,22 +138,22 @@ function Notify(top, text, ico, dur)
 end
 --------------分割线-----------------------------
 local success, PSU = pcall(function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/Roblox-Pi-Script-UI.lua", true))()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/zilinskaslandon/XingJiaoBen-2026-/refs/heads/main/Roblox-Xing-Script-UI.lua", true))()
 end)
 
 if not success then
     XPHUBNotification:Notification({
-        Title = "皮脚本",
+        Title = "星脚本",
         Text = "UI加载失败",
-        Icon = "rbxassetid://18941716391",
+        Icon = "rbxassetid://136169594232359",
         Duration = 3
     })
     return
 end
 
-local XIAOPI = PSU:new("皮脚本")
+local XIAOPI = PSU:new("星脚本")
 
-local PIJIAOBEN = XIAOPI:Tab("信息","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("信息","136169594232359")
 
 local about = PIJIAOBEN:section("用户信息", true)
 
@@ -411,7 +411,7 @@ run(function()
             userLabel.Position = UDim2.new(0.80, 0.80, 0.00090, 0)
             userLabel.Size = UDim2.new(0, 135, 0, 50)
             userLabel.Font = Enum.Font.GothamSemibold
-            userLabel.Text = "尊贵的皮脚本用户: " .. LocalPlayer.DisplayName
+            userLabel.Text = "尊贵的星脚本用户: " .. LocalPlayer.DisplayName
             userLabel.TextColor3 = Color3.new(1, 1, 1)
             userLabel.TextSize = 25
             userLabel.TextWrapped = true
@@ -450,7 +450,7 @@ run(function()
 end)
 
 run(function()
-    about:Toggle("开启/关闭皮脚本用户名称显示", "", false, function(state)
+    about:Toggle("开启/关闭星脚本用户名称显示", "", false, function(state)
         _G.UserDisplayConfig.enabled = state
         
         if state then
@@ -476,47 +476,27 @@ end)
 
 local about = PIJIAOBEN:section("作者信息",true)
 
-about:Label("皮脚本")
+about:Label("星脚本")
 about:Label("永不跑路的脚本")
-about:Label("作者: 小皮")
-about:Label("作者QQ: 2131869117")
-about:Label("皮脚本帮助者: 月星")
-about:Label("皮脚本QQ主群: 1065725086")
-about:Label("皮脚本QQ副群: 1094888646")
-about:Label("皮脚本QQ二群: 648817035")
-about:Label("皮脚本QQ三群: 1097247407")
-about:Label("皮脚本团建群: 1081584861")
-about:Label("皮脚本举报恶俗群: 1084719838")
-about:Label("皮脚本二周年晚会群: 753828002")
-about:Label("皮脚本DC社区: https://discord.gg/UKmaahNu8m")
-about:Label("皮脚本TG群组: https://t.me/pijiaoben")
+about:Label("作者: 小星")
+about:Label("作者QQ: 2332507600")
+about:Label("星脚本恩师: 小皮")
+about:Label("星脚本QQ主群: 645313702")
 about:Button("复制作者QQ", function()
-    setclipboard("2131869117")
+    setclipboard("2332507600")
 end)
 
 local selectedItem = nil
 local itemsMap = {
     ["皮脚本QQ主群"] = "1065725086",
-    ["皮脚本QQ副群"] = "1094888646",
-    ["皮脚本QQ二群"] = "648817035",
-    ["皮脚本QQ三群"] = "1097247407",
-    ["皮脚本团建群"] = "1081584861",
-    ["皮脚本举报恶俗群"] = "1084719838",
     ["皮脚本二周年晚会群"] = "753828002",
-    ["皮脚本DC社区"] = "https://discord.gg/UKmaahNu8m",
-    ["皮脚本TG群组"] = "https://t.me/pijiaoben"
+    ["星脚本QQ主群"] = "645313702",
 }
 
 about:Dropdown("选择群号/链接", "ItemSelector", {
     "皮脚本QQ主群",
-    "皮脚本QQ副群",
-    "皮脚本QQ二群",
-    "皮脚本QQ三群",
-    "皮脚本团建群",
-    "皮脚本举报恶俗群",
     "皮脚本二周年晚会群",
-    "皮脚本DC社区",
-    "皮脚本TG群组"
+    "星脚本QQ主群",
 }, function(selected)
     selectedItem = selected
 end)
@@ -532,7 +512,7 @@ end)
 
 local about = PIJIAOBEN:section("最大帮助者",true)
 
-about:Label("十分感谢月星对我的支持与帮助")
+about:Label("万分感谢小皮师傅对我的支持与帮助")
 about:Label("给我提供了许多的功能源码")
 about:Label("谢谢您的支持与帮助^ω^")
 
@@ -546,7 +526,7 @@ XP:Keybind("切换用户界面", Enum.KeyCode.Home, function(Value)
             ToggleUILib()
 end)     
 
-local PIJIAOBEN = XIAOPI:Tab("本地玩家","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("本地玩家","136169594232359")
 
 local about = PIJIAOBEN:section("速度", false)
 
@@ -1367,7 +1347,7 @@ about:Toggle("开启/关闭快速跑步","switch",false,function(v)
             end
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("通用","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("通用","136169594232359")
 
 local about = PIJIAOBEN:section("通用", false)
 
@@ -3529,7 +3509,7 @@ local function SendNotification(text, duration)
         XPHUBNotification:Notification({
             Title = "FPS控制",
             Text = text,
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = duration or 3
         })
     end)
@@ -4435,7 +4415,7 @@ run(function()
         local notification = {
             Title = title or "皮脚本",
             Text = text,
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         }
         
@@ -4669,7 +4649,7 @@ run(function()
     pcall(loadButtons)
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("旋转与范围","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("旋转与范围","136169594232359")
 
 local about = PIJIAOBEN:section("旋转", false)
 
@@ -5517,7 +5497,7 @@ about:Slider("头部透明度", "", 1, 0, 1, true, function(value)
     headSizeModule:UpdateAllTransparency()
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("传送与甩飞","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("传送与甩飞","136169594232359")
 
 local Select = PIJIAOBEN:section("选择玩家", false)
 
@@ -6018,7 +5998,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已传送到所有玩家身边",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         else
@@ -6028,7 +6008,7 @@ run(function()
                     XPHUBNotification:Notification({
                         Title = "皮脚本",
                         Text = "该玩家受到保护，无法传送",
-                        Icon = "rbxassetid://18941716391",
+                        Icon = "rbxassetid://136169594232359",
                         Duration = 3
                     })
                     return
@@ -6038,14 +6018,14 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "已经传送到玩家身边",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
             else
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "无法传送 原因: 玩家已消失",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
             end
@@ -6058,7 +6038,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已开启循环传送",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
             spawn(function()
@@ -6091,7 +6071,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已关闭循环传送",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         end
@@ -6112,7 +6092,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已将所有玩家传送过来",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         else
@@ -6122,7 +6102,7 @@ run(function()
                     XPHUBNotification:Notification({
                         Title = "皮脚本",
                         Text = "该玩家受到保护，无法传送",
-                        Icon = "rbxassetid://18941716391",
+                        Icon = "rbxassetid://136169594232359",
                         Duration = 3
                     })
                     return
@@ -6131,7 +6111,7 @@ run(function()
                     XPHUBNotification:Notification({
                         Title = "皮脚本",
                         Text = "该玩家是VIP用户，无法传送",
-                        Icon = "rbxassetid://18941716391",
+                        Icon = "rbxassetid://136169594232359",
                         Duration = 3
                     })
                     return
@@ -6141,14 +6121,14 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "已将玩家传送过来",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
             else
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "无法传送 原因: 玩家已消失",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
             end
@@ -6161,7 +6141,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已开启循环传送玩家过来",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
             spawn(function()
@@ -6194,7 +6174,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已关闭循环传送玩家过来",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         end
@@ -6208,7 +6188,7 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "不能同时瞄准所有玩家",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
                 return false
@@ -6219,7 +6199,7 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "找不到指定玩家",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
                 return false
@@ -6229,7 +6209,7 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "该玩家受到保护，无法自瞄",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
                 return false
@@ -6286,7 +6266,7 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "不能同时查看所有玩家",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
                 return
@@ -6297,7 +6277,7 @@ run(function()
                     XPHUBNotification:Notification({
                         Title = "皮脚本",
                         Text = "该玩家受到保护，无法查看",
-                        Icon = "rbxassetid://18941716391",
+                        Icon = "rbxassetid://136169594232359",
                         Duration = 3
                     })
                     return
@@ -6306,14 +6286,14 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "已开启查看玩家",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
             else
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "找不到指定玩家",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
             end
@@ -6325,7 +6305,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已关闭查看玩家",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         end
@@ -6353,7 +6333,7 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "不能同时环绕所有玩家",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
                 return false
@@ -6364,7 +6344,7 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "找不到指定玩家或玩家没有HumanoidRootPart",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
                 return false
@@ -6374,7 +6354,7 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "该玩家受到保护，无法环绕",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
                 return false
@@ -6383,7 +6363,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已开启环绕玩家",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
             
@@ -6393,7 +6373,7 @@ run(function()
                 XPHUBNotification:Notification({
                     Title = "皮脚本",
                     Text = "本地玩家没有HumanoidRootPart",
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 3
                 })
                 return false
@@ -6439,7 +6419,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "已关闭环绕玩家",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         end
@@ -6466,7 +6446,7 @@ run(function()
                     XPHUBNotification:Notification({
                         Title = "皮脚本",
                         Text = "该玩家受到保护，无法甩飞",
-                        Icon = "rbxassetid://18941716391",
+                        Icon = "rbxassetid://136169594232359",
                         Duration = 3
                     })
                     return
@@ -6475,7 +6455,7 @@ run(function()
                     XPHUBNotification:Notification({
                         Title = "皮脚本",
                         Text = "该玩家是VIP用户，无法甩飞",
-                        Icon = "rbxassetid://18941716391",
+                        Icon = "rbxassetid://136169594232359",
                         Duration = 3
                     })
                     return
@@ -6490,7 +6470,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = "皮脚本",
                 Text = "没有可甩飞的玩家",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
             return
@@ -6503,7 +6483,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = _Title,
                 Text = _Text,
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = Time
             })
         end
@@ -6679,7 +6659,7 @@ run(function()
     local SendChatMessage = _G.ChatUtils.SendChatMessage
     local config = _G.ChatSpamConfig
     
-    local PIJIAOBEN = XIAOPI:Tab("自动说话","18941716391")
+    local PIJIAOBEN = XIAOPI:Tab("自动说话","136169594232359")
     local about = PIJIAOBEN:section("自动说话", true)
     local about2 = PIJIAOBEN:section("骂人区", true)
     
@@ -6904,7 +6884,7 @@ run(function()
     end)
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("时间","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("时间","136169594232359")
 
 local about = PIJIAOBEN:section("时间", false)
 
@@ -7122,7 +7102,7 @@ do
                             XPHUBNotification:Notification({
                                 Title = "节日提醒",
                                 Text = getHolidayMessage(holiday.name, holiday.type, days),
-                                Icon = "rbxassetid://18941716391",
+                                Icon = "rbxassetid://136169594232359",
                                 Duration = 5
                             })
                         end
@@ -7135,7 +7115,7 @@ do
                             XPHUBNotification:Notification({
                                 Title = "节日提醒",
                                 Text = getHolidayMessage(holiday.name, holiday.type, nil),
-                                Icon = "rbxassetid://18941716391",
+                                Icon = "rbxassetid://136169594232359",
                                 Duration = 8
                             })
                         end
@@ -7180,14 +7160,14 @@ about:Textbox("设置闹钟时间", "AlarmTime", "格式: 时:分", function(tex
             XPHUBNotification:Notification({
                 Title = "闹钟设置",
                 Text = string.format("已设置闹钟: %02d:%02d (默认关闭)", hour, minute),
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         else
             XPHUBNotification:Notification({
                 Title = "闹钟设置",
                 Text = "时间格式错误，请使用 时:分 格式 (如 7:30 或 07:30)",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         end
@@ -7195,7 +7175,7 @@ about:Textbox("设置闹钟时间", "AlarmTime", "格式: 时:分", function(tex
         XPHUBNotification:Notification({
             Title = "闹钟设置",
             Text = "时间格式错误，请使用 时:分 格式 (如 7:30 或 07:30)",
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         })
     end
@@ -7208,14 +7188,14 @@ about:Textbox("稍后提醒时间(分钟)", "SnoozeTime", "输入(默认5)", fun
         XPHUBNotification:Notification({
             Title = "闹钟设置",
             Text = string.format("稍后提醒时间设置为 %d 分钟", minutes),
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         })
     else
         XPHUBNotification:Notification({
             Title = "闹钟设置",
             Text = "请输入有效的分钟数",
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         })
     end
@@ -7229,14 +7209,14 @@ about:Textbox("闹钟音量", "AlarmVolume", "输入(默认1)", function(text)
         XPHUBNotification:Notification({
             Title = "闹钟设置",
             Text = string.format("闹钟音量设置为 %.1f", volume),
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         })
     else
         XPHUBNotification:Notification({
             Title = "闹钟设置",
             Text = "音量范围应为 0 到 10",
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         })
     end
@@ -7248,14 +7228,14 @@ about:Textbox("设置闹钟声音ID", "AlarmSound", "输入声音ID", function(t
         XPHUBNotification:Notification({
             Title = "闹钟设置",
             Text = "闹钟声音已更新",
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         })
     else
         XPHUBNotification:Notification({
             Title = "闹钟设置",
             Text = "声音ID格式错误，请输入数字",
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         })
     end
@@ -7281,7 +7261,7 @@ about:Toggle("所有闹钟开关", "AllAlarmsSwitch", false, function(state)
     XPHUBNotification:Notification({
         Title = "闹钟设置",
         Text = state and "已开启所有闹钟" or "已关闭所有闹钟",
-        Icon = "rbxassetid://18941716391",
+        Icon = "rbxassetid://136169594232359",
         Duration = 3
     })
 end)
@@ -7292,7 +7272,7 @@ about:Button("清除所有闹钟", function()
     XPHUBNotification:Notification({
         Title = "闹钟设置",
         Text = "已清除所有闹钟",
-        Icon = "rbxassetid://18941716391",
+        Icon = "rbxassetid://136169594232359",
         Duration = 3
     })
 end)
@@ -7348,7 +7328,7 @@ function snoozeAlarm()
     XPHUBNotification:Notification({
         Title = "稍后提醒",
         Text = string.format("%d分钟后再次提醒 (需要手动开启)", Alarm.snoozeTime),
-        Icon = "rbxassetid://18941716391",
+        Icon = "rbxassetid://136169594232359",
         Duration = 3
     })
 end
@@ -7358,7 +7338,7 @@ function showAlarmList()
         XPHUBNotification:Notification({
             Title = "闹钟列表",
             Text = "当前没有设置闹钟",
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 3
         })
     else
@@ -7371,7 +7351,7 @@ function showAlarmList()
         XPHUBNotification:Notification({
             Title = "闹钟列表",
             Text = alarmList,
-            Icon = "rbxassetid://18941716391",
+            Icon = "rbxassetid://136169594232359",
             Duration = 5
         })
     end
@@ -7404,7 +7384,7 @@ function checkAlarms()
                 XPHUBNotification:Notification({
                     Title = "⏰ 闹钟提醒",
                     Text = string.format("%s\n时间: %02d:%02d\n音量: %.1f\n点击'稍后提醒'%d分钟后再响", alarm.name, alarm.hour, alarm.minute, Alarm.volume, Alarm.snoozeTime),
-                    Icon = "rbxassetid://18941716391",
+                    Icon = "rbxassetid://136169594232359",
                     Duration = 10
                 })
                 
@@ -7436,7 +7416,7 @@ end)
 
 updateAlarmStatus()
 
-local PIJIAOBEN = XIAOPI:Tab("透视","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("透视","136169594232359")
 
 local run = function(func) func() end
 
@@ -9981,7 +9961,7 @@ run(function()
     end)
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("自瞄","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("自瞄","136169594232359")
 
 local run = function(func) func() end
 
@@ -11778,7 +11758,7 @@ run(function()
     end)
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("动画","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("动画","136169594232359")
 
 local about = PIJIAOBEN:section("播放动画", false)
 
@@ -12482,7 +12462,7 @@ animationSection:Toggle("开启/关闭动画包", "anim_toggle", false, function
     end
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("FE","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("FE","136169594232359")
 
 local about = PIJIAOBEN:section("FE", true)
 
@@ -12971,7 +12951,7 @@ about:Button("滚球", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/KaterHub-Inc/scripts/refs/heads/main/unofficial-Projects/FEHamsterBall.lua"))()
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("音乐","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("音乐","136169594232359")
 
 local about = PIJIAOBEN:section("客户端音乐", false)
 
@@ -14329,7 +14309,7 @@ run(function()
     end
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("画质光影","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("画质光影","136169594232359")
 
 local Light = PIJIAOBEN:section("模糊", false)
 
@@ -14967,7 +14947,7 @@ Light:Button("光影深", function()
   loadstring(game:HttpGet("https://raw.githubusercontent.com/MZEEN2424/Graphics/main/Graphics.xml"))()
 end)
 
-local acsTab = XIAOPI:Tab("ACS漏洞","18941716391")
+local acsTab = XIAOPI:Tab("ACS漏洞","136169594232359")
 
 local run = function(func) func() end
 
@@ -15124,7 +15104,7 @@ run(function()
             XPHUBNotification:Notification({
                 Title = title,
                 Text = text,
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = duration or 3
             })
         end
@@ -17225,7 +17205,7 @@ run(function()
     end)
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("飞行与飞车","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("飞行与飞车","136169594232359")
 
 local Player = PIJIAOBEN:section("飞行", false)
 
@@ -17849,7 +17829,7 @@ run(function()
     end)
 end)
 
-local PIJIAOBEN = XIAOPI:Tab("选择服务器","18941716391")
+local PIJIAOBEN = XIAOPI:Tab("选择服务器","136169594232359")
 
 local about = PIJIAOBEN:section("选择服务器", true)
 
@@ -17889,9 +17869,9 @@ run(function()
             loadstring(_G.ScriptLoaderConfig.scripts[_G.ScriptLoaderConfig.selectedScript])()
         else
             XPHUBNotification:Notification({
-                Title = "皮脚本",
+                Title = "星脚本",
                 Text = "请先选择一个脚本",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         end
@@ -17901,16 +17881,16 @@ run(function()
         if _G.ScriptLoaderConfig.scripts[_G.ScriptLoaderConfig.selectedScript] then
             setclipboard(_G.ScriptLoaderConfig.scripts[_G.ScriptLoaderConfig.selectedScript])
             XPHUBNotification:Notification({
-                Title = "皮脚本",
+                Title = "星脚本",
                 Text = "已复制脚本",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         else
             XPHUBNotification:Notification({
-                Title = "皮脚本",
+                Title = "星脚本",
                 Text = "请先选择一个脚本",
-                Icon = "rbxassetid://18941716391",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         end
@@ -17926,9 +17906,9 @@ run(function()
             loadstring(_G.ScriptLoaderConfig.scripts[scriptName])()
         else
             XPHUBNotification:Notification({
-                Title = "皮脚本",
-                Text = "皮脚本暂未支持当前服务器",
-                Icon = "rbxassetid://18941716391",
+                Title = "星脚本",
+                Text = "星脚本暂未支持当前服务器",
+                Icon = "rbxassetid://136169594232359",
                 Duration = 3
             })
         end
@@ -17947,8 +17927,8 @@ local function formatTime(seconds)
 end
 
 XPHUBNotification:Notification({
-    Title = "皮脚本",
+    Title = "星脚本",
     Text = "功能已全部加载完毕\n耗时: " .. formatTime(loadTime),
-    Icon = "rbxassetid://18941716391",
+    Icon = "rbxassetid://136169594232359",
     Duration = 3
 })
