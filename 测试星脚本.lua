@@ -17838,6 +17838,7 @@ local run = function(func) func() end
 run(function()
     _G.ScriptLoaderConfig = {
         scripts = {
+             ["伐木大亨2"] = 'getgenv().XiaoPi="星脚本-伐木大亨2" loadstring(game:HttpGet("https://raw.githubusercontent.com/zilinskaslandon/XingJiaoBen-2026/refs/heads/main/%E4%BC%90%E6%9C%A8%E8%84%9A%E6%9C%AC.Lua"))()',
             ["内脏与黑火药"] = 'getgenv().XiaoPi="皮脚本-内脏与黑火药" loadstring(game:HttpGet("\\104\\116\\116\\112\\115\\58\\47\\47\\114\\97\\119\\46\\103\\105\\116\\104\\117\\98\\117\\115\\101\\114\\99\\111\\110\\116\\101\\110\\116\\46\\99\\111\\109\\47\\120\\105\\97\\111\\112\\105\\55\\55\\47\\120\\105\\97\\111\\112\\105\\55\\55\\47\\114\\101\\102\\115\\47\\104\\101\\97\\100\\115\\47\\109\\97\\105\\110\\47\\82\\111\\98\\108\\111\\120\\45\\80\\105\\45\\71\\66\\45\\83\\99\\114\\105\\112\\116\\46\\108\\117\\97"))()',
             ["自然灾害"] = 'getgenv().XiaoPi="皮脚本-自然灾害" loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/Roblox-Pi-Script-Naturaldisaster.lua"))()',
             ["成长王国"] = 'getgenv().XiaoPi="皮脚本-成长王国" loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/Roblox-Pi-Growupkingdom-Script.lua"))()',
@@ -17845,17 +17846,16 @@ run(function()
             ["驾驶帝国"] = 'getgenv().XiaoPi="皮脚本-驾驶帝国" loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/Roblox-Pi-Drivingempire-Script.lua"))()',
             ["尺寸传奇模拟器"] = 'getgenv().XiaoPi="皮脚本-尺寸传奇模拟器" loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/Roblox-Pi-Sizelegendsimulator-Script.lua"))()',
             ["河北唐县"] = 'getgenv().XiaoPi="皮脚本-河北唐县" loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/refs/heads/main/PIJIAOBEN-HEBEITANGXIAN.lua"))()'
-            ["伐木大亨2"] = 'getgenv().XiaoPi="星脚本-伐木大亨2" loadstring(game:HttpGet("https://raw.githubusercontent.com/zilinskaslandon/XingJiaoBen-2026/refs/heads/main/%E4%BC%90%E6%9C%A8%E8%84%9A%E6%9C%AC.Lua"))()'
         },
         gameMapping = {
-            [13822889] = "伐木大亨2",
-            [4342047058] = "内脏与黑火药",
-            [65241] = "自然灾害",
-            [8169180819] = "成长王国",
-            [1673768711] = "提升模拟器",
-            [1202096104] = "驾驶帝国",
-            [3608732146] = "尺寸传奇模拟器",
-            [1512676568] = "河北唐县",
+    [13822889] = "伐木大亨2",
+    [4342047058] = "内脏与黑火药",
+    [65241] = "自然灾害",
+    [8169180819] = "成长王国",
+    [1673768711] = "提升模拟器",
+    [1202096104] = "驾驶帝国",
+    [3608732146] = "尺寸传奇模拟器",
+    [1512676568] = "河北唐县"
         },
         selectedScript = ""
     }
